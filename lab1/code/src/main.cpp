@@ -26,6 +26,6 @@ int main(int argc, char *argv[])
 	std::unique_ptr<Algorithm> algorithm = std::make_unique<NaiveAlgorithm>();
 
 	Problem problem = CnfReader::read(input_filename);
-	Solution solution = Solver.solve(problem, algorithm);
-	FileWriter::write(solution.output(), output_filename);
+	// Solution solution = Solver.solve(problem, algorithm);
+	// FileWriter::write(solution.output(), output_filename);
 }
