@@ -1,4 +1,6 @@
-#include "node.hpp"
+#include "metaheuristic/node.hpp"
+
+using namespace Metaheuristic;
 
 template<typename T>
 Node<T>::Node(std::unique_ptr<T> value)

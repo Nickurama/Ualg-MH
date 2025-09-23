@@ -1,4 +1,6 @@
-#include "problem.hpp"
+#include "metaheuristic/problem.hpp"
+
+using namespace Metaheuristic;
 
 template<typename T, typename G>
 Problem<T, G>::Problem(T root_value)

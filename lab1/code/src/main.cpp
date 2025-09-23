@@ -1,13 +1,13 @@
 #include <iostream>
 #include <memory>
 
-#include "algorithm.hpp"
-#include "naiveAlgorithm.hpp"
-#include "problem.hpp"
-#include "cnfReader.hpp"
-#include "solution.hpp"
-#include "solver.hpp"
-#include "fileWriter.hpp"
+#include "metaheuristic/algorithm.hpp"
+#include "metaheuristic/problem.hpp"
+#include "metaheuristic/solution.hpp"
+#include "metaheuristic/solver.hpp"
+#include "algorithms/naiveAlgorithm.hpp"
+#include "io/cnfReader.hpp"
+#include "io/fileWriter.hpp"
 
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 
@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
 	std::string algorithm_name = argv[2];
 	std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
 
-	std::unique_ptr<Algorithm> algorithm = std::make_unique<NaiveAlgorithm>();
+	std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 
-	Problem problem = CnfReader::read(input_filename);
+	// Problem problem = CnfReader::read(input_filename);
 	// Solution solution = Solver.solve(problem, algorithm);
 	// FileWriter::write(solution.output(), output_filename);
 }

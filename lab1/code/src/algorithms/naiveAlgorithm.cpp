@@ -1,4 +1,6 @@
-#include "naiveAlgorithm.hpp"
+#include "algorithms/naiveAlgorithm.hpp"
+
+using namespace Algorithms;
 
 NaiveAlgorithm::NaiveAlgorithm()
 {
