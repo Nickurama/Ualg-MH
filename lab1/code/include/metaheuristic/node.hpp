@@ -28,28 +28,42 @@ namespace Metaheuristic
 	
 	protected:
 		// constructors
-		Node<T>(const Node<T> *parent, const T value);
-		Node<T>(const T value); // root node constructor
+		Node(const Node<T> *parent, const T value) :
+			m_parent(parent),
+			m_value(std::move(value)),
+			m_neighbors(),
+			m_hasFitness(false),
+			m_hash(DEFAULT_HASH_VALUE)
+		{ }
+
+		Node(const T value) : // root node constructor
+			Node(nullptr, value)
+		{ }
 
 		// virtual functions
-		virtual std::vector<std::unique_ptr<Node<T>>> generateNeighbors() = 0;
-		virtual double calcFitness() = 0;
+		virtual std::vector<std::unique_ptr<Node<T>>> generateNeighbors() const = 0;
+		virtual double calcFitness() const = 0;
 
 		// copy constructors
-		Node<T>(const Node<T> &other) = delete;
+		Node(const Node<T> &other) = delete;
 		Node<T> &operator=(const Node<T> &other) = delete;
 
 		// move constructors
-		Node<T>(Node &&other) = default;
+		Node(Node &&other) = default;
 		Node<T> &operator=(Node<T> &&other) = default;
 
 	public:
-		virtual ~Node<T>() = default;
+		virtual ~Node() = default;
 		inline Node<T> *parent() const;
 		inline const T &value() const;
 		std::span<const std::unique_ptr<Node<T>>> neighbors() const; // lazy initialization
 		double fitness() const; // lazy initialization
-		bool operator==(const Node<T> &other) const; // should be true even if different parents, just equal values
+		bool operator==(const Node<T> &other) const // should be true even if different parents, just equal values
+		{
+			if (typeid(*this) != typeid(other)) return false;
+			return m_value == other.m_value;
+		}
+
 		bool operator!=(const Node<T> &other) const;
 		size_t hash() const; // hash of value
 	};

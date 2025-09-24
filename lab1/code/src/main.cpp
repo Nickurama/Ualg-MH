@@ -9,6 +9,7 @@
 #include "algorithms/naiveAlgorithm.hpp"
 #include "io/cnfReader.hpp"
 #include "io/fileWriter.hpp"
+#include "problems/maxsatNode.hpp"
 
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 
@@ -24,11 +25,11 @@ int main(int argc, char *argv[])
 	std::string algorithm_name = argv[2];
 	std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
 
-	std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
+	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 
-	Metaheuristic::Node<int> node0(2);
-	Metaheuristic::Node<int> node1(3);
-	std::cout << node0 == node1 << "\n";
+	Problems::MaxsatNode node0("owo");
+	Problems::MaxsatNode node1("owo");
+	std::cout << (node0 == node1) << "\n";
 
 	// Problem problem = CnfReader::read(input_filename);
 	// Solution solution = Solver.solve(problem, algorithm);
