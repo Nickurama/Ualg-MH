@@ -5,6 +5,7 @@
 #include "metaheuristic/problem.hpp"
 #include "metaheuristic/solution.hpp"
 #include "metaheuristic/solver.hpp"
+#include "metaheuristic/node.hpp"
 #include "algorithms/naiveAlgorithm.hpp"
 #include "io/cnfReader.hpp"
 #include "io/fileWriter.hpp"
@@ -24,6 +25,10 @@ int main(int argc, char *argv[])
 	std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
 
 	std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
+
+	Metaheuristic::Node<int> node0(2);
+	Metaheuristic::Node<int> node1(3);
+	std::cout << node0 == node1 << "\n";
 
 	// Problem problem = CnfReader::read(input_filename);
 	// Solution solution = Solver.solve(problem, algorithm);

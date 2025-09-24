@@ -6,21 +6,21 @@
 
 constexpr size_t DEFAULT_HASH_VALUE = ~0ul;
 
+template<typename T>
+concept Hashable = requires(T a, T b)
+{
+	{ std::hash<T>{}(a) } -> std::convertible_to<size_t>;
+	{ a == b } -> std::convertible_to<bool>;
+};
+
 namespace Metaheuristic
 {
-	template<typename T>
-	concept Hashable = requires(T a, T b)
-	{
-		{ a.hash() } -> std::convertible_to<size_t>;
-		{ a == b } -> std::convertible_to<bool>;
-	};
-
 	template<Hashable T>
 	class Node
 	{
 	private:
 		const Node<T> *m_parent;
-		const std::unique_ptr<T> m_value;
+		const T m_value;
 		mutable std::vector<std::unique_ptr<Node<T>>> m_neighbors; // lazy initialization
 		mutable double m_fitness; // lazy initialization
 		mutable bool m_hasFitness;
@@ -28,8 +28,8 @@ namespace Metaheuristic
 	
 	protected:
 		// constructors
-		Node<T>(const std::unique_ptr<T> value); // root node constructor
-		Node<T>(const Node<T> *parent, const std::unique_ptr<T> value);
+		Node<T>(const Node<T> *parent, const T value);
+		Node<T>(const T value); // root node constructor
 
 		// virtual functions
 		virtual std::vector<std::unique_ptr<Node<T>>> generateNeighbors() = 0;
@@ -52,5 +52,17 @@ namespace Metaheuristic
 		bool operator==(const Node<T> &other) const; // should be true even if different parents, just equal values
 		bool operator!=(const Node<T> &other) const;
 		size_t hash() const; // hash of value
+	};
+}
+
+namespace std
+{
+	template<Hashable T>
+	struct hash<Metaheuristic::Node<T>>
+	{
+		size_t operator()(const Metaheuristic::Node<T> &node) const
+		{
+			return node.hash();
+		}
 	};
 }

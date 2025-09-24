@@ -3,7 +3,7 @@
 using namespace Metaheuristic;
 
 template<Hashable T>
-Node<T>::Node(const Node<T> *parent, const std::unique_ptr<T> value) :
+Node<T>::Node(const Node<T> *parent, T value) :
 	m_parent(parent),
 	m_value(std::move(value)),
 	m_neighbors(nullptr),
@@ -12,7 +12,7 @@ Node<T>::Node(const Node<T> *parent, const std::unique_ptr<T> value) :
 { }
 
 template<Hashable T>
-Node<T>::Node(const std::unique_ptr<T> value) :
+Node<T>::Node(const T value) :
 	Node(nullptr, value)
 { }
 
@@ -59,7 +59,7 @@ bool Node<T>::operator==(const Node<T> &other) const
 template<Hashable T>
 bool Node<T>::operator!=(const Node<T> &other) const
 {
-	return !(this == other);
+	return !(*this == other);
 }
 
 template<Hashable T>
@@ -67,7 +67,7 @@ size_t Node<T>::hash() const
 {
 	if (m_hash == DEFAULT_HASH_VALUE)
 	{
-		m_hash = m_value->hash();
+		m_hash = std::hash<T>(m_value);
 	}
 	return m_hash;
 }
