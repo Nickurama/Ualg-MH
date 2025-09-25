@@ -9,7 +9,7 @@
 #include "algorithms/naiveAlgorithm.hpp"
 #include "io/cnfReader.hpp"
 #include "io/fileWriter.hpp"
-#include "problems/maxsatNode.hpp"
+#include "problems/maxsat/maxsatNode.hpp"
 
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 

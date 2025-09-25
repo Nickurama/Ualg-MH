@@ -1,4 +1,4 @@
-#include "problems/maxsatNode.hpp"
+#include "problems/maxsat/maxsatNode.hpp"
 
 using namespace Problems;
 
