@@ -3,14 +3,18 @@ CFLAGS = -std=c++20 -O2
 # CFLAGS = -std=c++17 -O2 -DNDEBUG
 LDFLAGS = -Wall -Wextra -Wpedantic
 SRCFILES = $(wildcard src/*.cpp)
+INCLUDES = include src
+PROJECT = maxsat
 
-build/maxsat: $(SRCFILES)
-	$(CPPC) $(CFLAGS) -o build/maxsat $(SRCFILES) $(LDFLAGS) -I include
+FORMATTED_INCLUDES = $(addprefix -I,$(INCLUDES))
+
+build/$(PROJECT): $(SRCFILES)
+	$(CPPC) $(CFLAGS) $(FORMATTED_INCLUDES) -o build/$(PROJECT) $(SRCFILES) $(LDFLAGS)
 
 .PHONY: run clean
 
-run: build/maxsat
-	./build/maxsat
+run: build/$(PROJECT)
+	./build/$(PROJECT) $(ARGS)
 
 clean:
-	rm -f build/maxsat
+	rm -f build/$(PROJECT)

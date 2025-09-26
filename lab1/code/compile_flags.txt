@@ -2,5 +2,6 @@
 -Wall
 -Wextra
 -Wpedantic
--I
-include
+-xc++
+-Iinclude
+-Isrc

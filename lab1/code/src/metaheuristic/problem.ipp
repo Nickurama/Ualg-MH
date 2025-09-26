@@ -1,3 +1,4 @@
+#pragma once
 #include "metaheuristic/problem.hpp"
 
 using namespace Metaheuristic;

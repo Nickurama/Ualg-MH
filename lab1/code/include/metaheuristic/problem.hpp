@@ -18,3 +18,5 @@ namespace Metaheuristic
 		std::vector<std::unique_ptr<Node<T>>> getRootNodes();
 	};
 }
+
+#include "metaheuristic/problem.ipp"

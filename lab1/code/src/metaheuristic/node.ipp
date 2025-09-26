@@ -1,6 +1,32 @@
+#pragma once
 #include "metaheuristic/node.hpp"
 
 using namespace Metaheuristic;
+
+template<Hashable T>
+Node<T>::Node(const Node<T> *parent, const T value) :
+	m_parent(parent),
+	m_value(std::move(value)),
+	m_neighbors(),
+	m_hasFitness(false),
+	m_hash(DEFAULT_HASH_VALUE)
+{
+
+}
+
+template<Hashable T>
+Node<T>::Node(const T value) :
+	Node(nullptr, value)
+{
+
+}
+
+template<Hashable T>
+bool Node<T>::operator==(const Node<T> &other) const // should be true even if different parents, just equal values
+{
+	if (typeid(*this) != typeid(other)) return false;
+	return m_value == other.m_value;
+}
 
 template<Hashable T>
 Node<T> *Node<T>::parent() const

@@ -21,3 +21,5 @@ namespace Metaheuristic
 		// virtual Node neighbors() = 0;
 	};
 }
+
+#include "metaheuristic/algorithm.ipp"

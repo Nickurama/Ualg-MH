@@ -3,7 +3,7 @@
 
 namespace Algorithms
 {
-	class NaiveAlgorithm : public Metaheuristic::Algorithm
+	class NaiveAlgorithm : public Metaheuristic::Algorithm<int>
 	{
 	private:
 	public:
