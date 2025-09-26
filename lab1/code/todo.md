@@ -1,12 +1,10 @@
-# Node
-- [ ] copy constructor
-- [ ] move constructor
-- [ ] equals operator
-- [ ] hash calculation
-
 # General
 - [ ] Make template implementation in header
 - [ ] Make tpp files
+- [ ] Node calcCost()
+- [ ] Node virtual calcHeuristic() just calls calcFitness() by default
+- [ ] Node heuristic() and cost()
+- [ ] change Metaheuristic namespace to Core
 
 # Pseudocode
 Node[] nodes = problem.getRootNodes()

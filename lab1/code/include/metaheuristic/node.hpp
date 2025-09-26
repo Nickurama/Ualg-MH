@@ -43,6 +43,7 @@ namespace Metaheuristic
 		// virtual functions
 		virtual std::vector<std::unique_ptr<Node<T>>> generateNeighbors() const = 0;
 		virtual double calcFitness() const = 0;
+		virtual double calcCost() const = 0; // TODO
 
 		// copy constructors
 		Node(const Node<T> &other) = delete;

@@ -15,6 +15,6 @@ namespace Metaheuristic
 		virtual ~Problem() = default;
 
 		virtual G check(Node<T>) = 0;
-		Node<T> getRootNode();
+		std::vector<std::unique_ptr<Node<T>>> getRootNodes();
 	};
 }

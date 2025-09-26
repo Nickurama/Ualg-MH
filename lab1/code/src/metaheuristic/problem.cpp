@@ -10,7 +10,7 @@ Problem<T, G>::Problem(T root_value)
 }
 
 template<typename T, typename G>
-Node<T> Problem<T, G>::getRootNode()
+std::vector<std::unique_ptr<Node<T>>> Problem<T, G>::getRootNodes()
 {
 
 }
