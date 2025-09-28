@@ -105,3 +105,13 @@ inline bool BitArray::operator==(const BitArray& other) const
 {
 	return this->m_size_bits == other.m_size_bits ? memcmp(this->m_arr.get(), other.m_arr.get(), this->m_true_size * sizeof(unsigned long)) : false;
 }
+
+size_t BitArray::hash() const
+{
+	size_t seed = m_true_size;
+	for (size_t i = 0; i < m_true_size; i++)
+	{
+		seed ^= std::hash<unsigned long>{}(m_arr[i]) + 0x9e3779b9 + (seed << 6) + (seed >> 2); // integral part of the golden ratio's fractional part
+	}
+	return seed;
+}

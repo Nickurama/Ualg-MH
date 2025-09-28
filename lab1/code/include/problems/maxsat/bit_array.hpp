@@ -32,9 +32,23 @@ namespace Problems
 		inline void invert(size_t k);
 		inline void increment();
 
+		size_t hash() const;
 		inline size_t size() const;
 
 		inline bool operator[](size_t index) const;
 		inline bool operator==(const BitArray& other) const;
 	};
 }
+
+namespace std
+{
+	template<>
+	struct hash<Problems::BitArray>
+	{
+		size_t operator()(const Problems::BitArray &bit_arr) const
+		{
+			return bit_arr.hash();
+		}
+	};
+}
+
