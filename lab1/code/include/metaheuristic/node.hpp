@@ -17,18 +17,14 @@ namespace Metaheuristic
 	class Node
 	{
 	private:
-		const Node<T> *m_parent;
-		const T m_value;
+		const Node<T> *m_parent; // non-owning
+		T m_value;
+		const std::vector<std::unique_ptr<Node<T>>> m_children;
+
+		// private constructor
+		Node(const Node<T> *parent, T value);
 	
 	protected:
-		// constructors
-		Node(const Node<T> *parent, const T value) :
-			m_parent(parent),
-			m_value(std::move(value))
-		{ }
-
-		Node(const T value); // root node constructor
-
 		// copy constructors
 		Node(const Node<T> &other) = delete;
 		Node<T> &operator=(const Node<T> &other) = delete;
@@ -42,6 +38,7 @@ namespace Metaheuristic
 		inline Node<T> *parent() const;
 		inline const T &value() const;
 		bool operator!=(const Node<T> &other) const;
+		const T& value();
 
 		// virtual functions
 		virtual double fitness() const = 0;
@@ -51,6 +48,10 @@ namespace Metaheuristic
 		// virtual defaulted functions
 		virtual size_t hash() const; // hash of value (in the default implementation)
 		virtual bool operator==(const Node<T> &other) const; // should be true even if different parents, just equal values. (in the default implementation)
+
+		// constructors
+		static std::unique_ptr<Node<T>> createRoot(T value); // transfers ownership to the caller
+		Node<T>& createChild(T value); // ownership goes to the parent
 	};
 }
 

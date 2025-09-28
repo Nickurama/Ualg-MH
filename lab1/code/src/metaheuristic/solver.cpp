@@ -1,43 +1,40 @@
+#include "metaheuristic/solver.hpp"
+
 using namespace Metaheuristic;
 
 template<typename NodeType, typename SolutionType>
-const Solution<SolutionType> Solver<NodeType, SolutionType>::solve(Problem<NodeType, SolutionType> problem, Algorithm<NodeType> algorithm)
+Solver<NodeType, SolutionType>::Solver(Problem<NodeType, SolutionType>& problem, Algorithm<NodeType>& algorithm) :
+	m_problem(problem),
+	m_algorithm(algorithm),
+	m_neighborGenerator(problem.getNeighborGenerator()),
+	m_nodes(problem.getRootNodes())
 {
-	Solution<SolutionType> solution;
-	std::vector<std::unique_ptr<Node<NodeType>>> nodes = problem.getRootNodes();
-	NeighborGenerator<NodeType> neighborGenerator = problem.getNeighborGenerator();
+}
 
-	// note: some problems require problem knowledge to understand if the algorithm should terminate.
-	// some other problems just require the algorithm to acknowledge it has found a solution.
-	// problem solutions take priority to algorithm solutions.
-	// with this, we achieve encapsulation in which the problem doesn't have to know what algorithm is
-	// solving it, and likewise, the algorithm doesn't know what problem it is solving
+// note: some problems require problem knowledge to understand if the algorithm should terminate.
+// some other problems just require the algorithm to acknowledge it has found a solution.
+// problem solutions take priority to algorithm solutions.
+// with this, we achieve encapsulation in which the problem doesn't have to know what algorithm is
+// solving it, and likewise, the algorithm doesn't know what problem it is solving
 
-	// that said, it could also be that the algorithm has terminated (has a solution),
-	// but the problem also has a solution, in which case it should prioritize the problem's solution.
-
-	problem.evaluate(nodes);
-	algorithm.evaluate(nodes);
-	while (problem.shouldTerminate(nodes) || algorithm.shouldTerminate(nodes))
+// that said, it could also be that the algorithm has terminated (has a solution),
+// but the problem also has a solution, in which case it should prioritize the problem's solution.
+template<typename NodeType, typename SolutionType>
+const Solution<SolutionType> Solver<NodeType, SolutionType>::solve()
+{
+	m_problem.evaluate(m_nodes);
+	m_algorithm.evaluate(m_nodes);
+	while (m_problem.shouldTerminate(m_nodes) || m_algorithm.shouldTerminate(m_nodes))
 	{
 		// generate neighbors
-		std::vector<std::unique_ptr<Node<NodeType>>> neighbors = algorithm.getNeighbors(nodes, neighborGenerator);
+		std::vector<std::unique_ptr<Node<NodeType>>> neighbors = m_algorithm.getNeighbors(m_nodes, m_neighborGenerator);
 		// pick nodes to be used
-		nodes = algorithm.chooseNodes(nodes, neighbors);
+		m_nodes = m_algorithm.chooseNodes(m_nodes, neighbors);
 		// give nodes to execute inner logic and to see if a solution has been found solutions
-		problem.evaluate(nodes);
-		algorithm.evaluate(nodes);
+		m_problem.evaluate(m_nodes);
+		m_algorithm.evaluate(m_nodes);
 	}
 
-	if (problem.hasSolution())
-	{
-		solution = problem.getSolution();
-	}
-	else
-	{
-		solution = algorithm.getCurrentSolution();
-	}
-
-	return solution;
+	return m_problem.hasSolution() ? m_problem.getSolution() : m_algorithm.getCurrentSolution();
 }
 

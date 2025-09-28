@@ -11,12 +11,20 @@ namespace Metaheuristic
 	template<typename NodeType, typename SolutionType>
 	class Solver
 	{
+	private:
+		const Problem<NodeType, SolutionType>& m_problem;
+		Algorithm<NodeType>& m_algorithm;
+		NeighborGenerator<NodeType>& m_neighborGenerator;
+		std::vector<Node<NodeType>*> m_nodes;
+
 	public:
+		Solver(Problem<NodeType, SolutionType>& problem, Algorithm<NodeType>& algorithm);
+		~Solver() = default;
 		Solver(const Solver&) = default;
 		Solver& operator=(const Solver&) = default;
 		Solver(const Solver&&) = delete;
 		Solver& operator=(const Solver&&) = delete;
 
-		const Solution<SolutionType> solve(Problem<NodeType, SolutionType> problem, Algorithm<NodeType> algorithm);
+		const Solution<SolutionType> solve();
 	};
 }

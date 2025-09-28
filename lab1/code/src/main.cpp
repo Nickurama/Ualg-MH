@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 
 	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 
-	Problems::MaxsatNode node0("owo");
-	Problems::MaxsatNode node1("owo");
-	std::cout << (node0 == node1) << "\n";
+	// Problems::MaxsatNode node0("owo");
+	// Problems::MaxsatNode node1("owo");
+	// std::cout << (node0 == node1) << "\n";
 
 	// Problem problem = CnfReader::read(input_filename);
 	// Solution solution = Solver.solve(problem, algorithm);
