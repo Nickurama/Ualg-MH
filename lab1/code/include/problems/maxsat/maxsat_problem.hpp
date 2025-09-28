@@ -7,9 +7,15 @@ namespace Problems
 {
 	class MaxsatProblem : public Metaheuristic::Problem<BitArray, int>
 	{
-	protected:
-
 	public:
+		MaxsatProblem();
+		~MaxsatProblem() = default;
 
+		// virtual functions
+		const std::vector<std::unique_ptr<Node<BitArray>>>& getRootNodes();
+		NeighborGenerator<BitArray>& getNeighborGenerator() const;
+		void evaluate(const std::vector<Node<BitArray>*> nodes);
+		bool shouldTerminate(const std::vector<Node<BitArray>*> nodes) const;
+		bool hasSolution() const;
 	};
 }

@@ -13,9 +13,9 @@ namespace Problems
 	public:
 		~MaxsatNode() override = default;
 
-		double fitness() const override;
-		double heuristic() const override;
-		double cost() const override;
+		// double fitness() const override;
+		// double heuristic() const override;
+		// double cost() const override;
 	};
 }
 
