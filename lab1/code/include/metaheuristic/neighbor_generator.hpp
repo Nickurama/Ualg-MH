@@ -7,15 +7,15 @@
 namespace Metaheuristic
 {
 	template<typename T>
-	class INeighborGenerator
+	class NeighborGenerator
 	{
 	public:
 		// pure virtual class
-		INeighborGenerator(const INeighborGenerator&) = delete;
-		INeighborGenerator& operator=(const INeighborGenerator&) = delete;
-		INeighborGenerator(const INeighborGenerator&&) = delete;
-		INeighborGenerator& operator=(const INeighborGenerator&&) = delete;
-		virtual ~INeighborGenerator() {};
+		NeighborGenerator(const NeighborGenerator&) = delete;
+		NeighborGenerator& operator=(const NeighborGenerator&) = delete;
+		NeighborGenerator(const NeighborGenerator&&) = delete;
+		NeighborGenerator& operator=(const NeighborGenerator&&) = delete;
+		virtual ~NeighborGenerator() {};
 
 		// state-space
 		virtual std::vector<std::unique_ptr<Node<T>>> getAllNeighbors(const Node<T>& node) = 0;

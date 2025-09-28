@@ -1,5 +1,3 @@
-#include "metaheuristic/solver.hpp"
-#include "metaheuristic/INeighborGenerator.hpp"
 
 using namespace Metaheuristic;
 
@@ -8,7 +6,7 @@ const Solution<SolutionType> Solver<NodeType, SolutionType>::solve(Problem<NodeT
 {
 	Solution<SolutionType> solution;
 	std::vector<std::unique_ptr<Node<NodeType>>> nodes = problem.getRootNodes();
-	INeighborGenerator<NodeType> neighborGenerator = problem.getNeighborGenerator();
+	NeighborGenerator<NodeType> neighborGenerator = problem.getNeighborGenerator();
 
 	// note: some problems require problem knowledge to understand if the algorithm should terminate.
 	// some other problems just require the algorithm to acknowledge it has found a solution.

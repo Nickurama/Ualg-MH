@@ -3,7 +3,9 @@
 #include "metaheuristic/algorithm.hpp"
 #include "metaheuristic/problem.hpp"
 #include "metaheuristic/solution.hpp"
+#include "metaheuristic/neighbor_generator.hpp"
 #include <memory>
+
 namespace Metaheuristic
 {
 	template<typename NodeType, typename SolutionType>

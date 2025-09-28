@@ -21,7 +21,6 @@ namespace Metaheuristic
 	private:
 		const Node<T> *m_parent;
 		const T m_value;
-		mutable std::vector<std::unique_ptr<Node<T>>> m_neighbors; // lazy initialization
 		mutable double m_fitness; // lazy initialization
 		mutable bool m_hasFitness;
 		mutable size_t m_hash; // lazy initialization
@@ -31,7 +30,6 @@ namespace Metaheuristic
 		Node(const Node<T> *parent, const T value) :
 			m_parent(parent),
 			m_value(std::move(value)),
-			m_neighbors(),
 			m_hasFitness(false),
 			m_hash(DEFAULT_HASH_VALUE)
 		{ }
@@ -41,7 +39,6 @@ namespace Metaheuristic
 		{ }
 
 		// virtual functions
-		virtual std::vector<std::unique_ptr<Node<T>>> generateNeighbors() const = 0;
 		virtual double calcFitness() const = 0;
 		virtual double calcCost() const = 0; // TODO
 
@@ -57,7 +54,6 @@ namespace Metaheuristic
 		virtual ~Node() = default;
 		inline Node<T> *parent() const;
 		inline const T &value() const;
-		std::span<const std::unique_ptr<Node<T>>> neighbors() const; // lazy initialization
 		double fitness() const; // lazy initialization
 		bool operator==(const Node<T> &other) const // should be true even if different parents, just equal values
 		{

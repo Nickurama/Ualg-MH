@@ -15,16 +15,6 @@ const T &Node<T>::value() const
 }
 
 template<Hashable T>
-std::span<const std::unique_ptr<Node<T>>> Node<T>::neighbors() const
-{
-	if (m_neighbors == nullptr)
-	{
-		m_neighbors = generateNeighbors();
-	}
-	return m_neighbors;
-}
-
-template<Hashable T>
 double Node<T>::fitness() const
 {
 	if (!m_hasFitness)
