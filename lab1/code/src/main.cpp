@@ -6,10 +6,10 @@
 #include "metaheuristic/solution.hpp"
 #include "metaheuristic/solver.hpp"
 #include "metaheuristic/node.hpp"
-#include "algorithms/naiveAlgorithm.hpp"
-#include "io/cnfReader.hpp"
-#include "io/fileWriter.hpp"
-#include "problems/maxsat/maxsatNode.hpp"
+#include "algorithms/naive_algorithm.hpp"
+#include "io/cnf_reader.hpp"
+#include "io/file_writer.hpp"
+#include "problems/maxsat/maxsat_node.hpp"
 
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 
