@@ -4,8 +4,6 @@
 #include <span>
 #include <vector>
 
-constexpr size_t DEFAULT_HASH_VALUE = ~0ul;
-
 template<typename T>
 concept Hashable = requires(T a, T b)
 {
@@ -21,26 +19,15 @@ namespace Metaheuristic
 	private:
 		const Node<T> *m_parent;
 		const T m_value;
-		mutable double m_fitness; // lazy initialization
-		mutable bool m_hasFitness;
-		mutable size_t m_hash; // lazy initialization
 	
 	protected:
 		// constructors
 		Node(const Node<T> *parent, const T value) :
 			m_parent(parent),
-			m_value(std::move(value)),
-			m_hasFitness(false),
-			m_hash(DEFAULT_HASH_VALUE)
+			m_value(std::move(value))
 		{ }
 
-		Node(const T value) : // root node constructor
-			Node(nullptr, value)
-		{ }
-
-		// virtual functions
-		virtual double calcFitness() const = 0;
-		virtual double calcCost() const = 0; // TODO
+		Node(const T value); // root node constructor
 
 		// copy constructors
 		Node(const Node<T> &other) = delete;
@@ -54,15 +41,16 @@ namespace Metaheuristic
 		virtual ~Node() = default;
 		inline Node<T> *parent() const;
 		inline const T &value() const;
-		double fitness() const; // lazy initialization
-		bool operator==(const Node<T> &other) const // should be true even if different parents, just equal values
-		{
-			if (typeid(*this) != typeid(other)) return false;
-			return m_value == other.m_value;
-		}
-
 		bool operator!=(const Node<T> &other) const;
-		size_t hash() const; // hash of value
+
+		// virtual functions
+		virtual double fitness() const = 0;
+		virtual double heuristic() const = 0;
+		virtual double cost() const = 0;
+
+		// virtual defaulted functions
+		virtual size_t hash() const; // hash of value (in the default implementation)
+		virtual bool operator==(const Node<T> &other) const; // should be true even if different parents, just equal values. (in the default implementation)
 	};
 }
 
@@ -77,3 +65,5 @@ namespace std
 		}
 	};
 }
+
+# include "metaheuristic/node.ipp"
