@@ -1,13 +1,16 @@
+#pragma once
 #include "problems/maxsat/maxsat_node.hpp"
 
 using namespace Problems;
 
-// std::vector<std::unique_ptr<Metaheuristic::Node<std::string>>> MaxsatNode::generateNeighbors() const
+// double MaxsatNode::fitness() const
 // {
-// 	return { };
 // }
 //
-// double MaxsatNode::calcFitness() const
+// double MaxsatNode::heuristic() const
 // {
-// 	return 0;
+// }
+//
+// double MaxsatNode::cost() const
+// {
 // }

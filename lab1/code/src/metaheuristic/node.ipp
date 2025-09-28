@@ -15,7 +15,7 @@ Node<T>::Node(const Node<T> *parent, const T value) :
 template<Hashable T>
 std::unique_ptr<Node<T>> Node<T>::createRoot(T value)
 {
-	return std::make_unique<Node<T>>(nullptr, value);
+	return std::unique_ptr<Node<T>>(new Node<T>(nullptr, value));
 }
 
 template<Hashable T>
@@ -55,5 +55,29 @@ bool Node<T>::operator!=(const Node<T> &other) const
 template<Hashable T>
 size_t Node<T>::hash() const
 {
-	return std::hash<T>(m_value);
+	return std::hash<T>{}(m_value);
+}
+
+template<Hashable T>
+double Node<T>::fitness() const
+{
+	throw std::runtime_error("function not implemented.");
+}
+
+template<Hashable T>
+double Node<T>::heuristic() const
+{
+	throw std::runtime_error("function not implemented.");
+}
+
+template<Hashable T>
+double Node<T>::cost() const
+{
+	throw std::runtime_error("function not implemented.");
+}
+
+template<Hashable T>
+bool Node<T>::operator==(const Node<T> &other) const
+{
+	return m_value == other.m_value;
 }

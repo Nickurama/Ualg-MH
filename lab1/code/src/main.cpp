@@ -11,6 +11,9 @@
 #include "io/file_writer.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
 
+using namespace Problems;
+using namespace Metaheuristic;
+
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 
 int main(int argc, char *argv[])
@@ -24,6 +27,17 @@ int main(int argc, char *argv[])
 	std::string input_filename = argv[1];
 	std::string algorithm_name = argv[2];
 	std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
+
+	BitArray ba(120);
+	std::cout << ba[119] << '\n';
+	ba.set(119, true);
+	std::cout << ba[119] << '\n';
+	ba.flip(119);
+	std::cout << ba[119] << '\n';
+	ba.flip(119);
+
+	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot(ba);
+	std::cout << n->value()[119] << '\n';
 
 	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 

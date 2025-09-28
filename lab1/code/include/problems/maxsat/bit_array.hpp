@@ -11,7 +11,7 @@ namespace Problems
 	private:
 		size_t m_true_size;
 		size_t m_size_bits;
-		std::unique_ptr<unsigned long[]> m_arr;
+		std::unique_ptr<uint64_t[]> m_arr;
 
 		static inline void copyMemberArray(BitArray& to, const BitArray& from);
 		static inline size_t getTrueIndexFromBit(size_t k);
@@ -29,7 +29,7 @@ namespace Problems
 
 		inline bool get(size_t k) const;
 		inline void set(size_t k, bool val);
-		inline void invert(size_t k);
+		inline void flip(size_t k);
 		inline void increment();
 
 		size_t hash() const;
@@ -39,6 +39,8 @@ namespace Problems
 		inline bool operator==(const BitArray& other) const;
 	};
 }
+
+#include "problems/maxsat/bit_array.cpp"
 
 namespace std
 {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <span>
 #include <vector>
 
 template<typename T>
@@ -18,7 +17,7 @@ namespace Metaheuristic
 	{
 	private:
 		const Node<T> *m_parent; // non-owning
-		T m_value;
+		const T m_value;
 		const std::vector<std::unique_ptr<Node<T>>> m_children;
 
 		// private constructor
@@ -40,10 +39,10 @@ namespace Metaheuristic
 		bool operator!=(const Node<T> &other) const;
 		const T& value();
 
-		// virtual functions
-		virtual double fitness() const = 0;
-		virtual double heuristic() const = 0;
-		virtual double cost() const = 0;
+		// virtual functions, meant to be overriden
+		virtual double fitness() const;
+		virtual double heuristic() const;
+		virtual double cost() const;
 
 		// virtual defaulted functions
 		virtual size_t hash() const; // hash of value (in the default implementation)
