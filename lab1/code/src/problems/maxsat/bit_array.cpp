@@ -100,3 +100,8 @@ inline bool BitArray::operator[](size_t k) const
 	verify(k);
 	return get(k);
 }
+
+inline bool BitArray::operator==(const BitArray& other) const
+{
+	return this->m_size_bits == other.m_size_bits ? memcmp(this->m_arr.get(), other.m_arr.get(), this->m_true_size * sizeof(unsigned long)) : false;
+}

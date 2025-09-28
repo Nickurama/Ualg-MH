@@ -35,5 +35,6 @@ namespace Problems
 		inline size_t size() const;
 
 		inline bool operator[](size_t index) const;
+		inline bool operator==(const BitArray& other) const;
 	};
 }
