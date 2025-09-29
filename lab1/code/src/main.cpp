@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	std::cout << ba[119] << '\n';
 	ba.flip(119);
 
-	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot(ba);
+	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot<MaxsatNode>(ba);
 	std::cout << n->value()[119] << '\n';
 
 	std::vector<int32_t> test = {1, -3};

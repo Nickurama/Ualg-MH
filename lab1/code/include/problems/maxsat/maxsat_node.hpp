@@ -8,8 +8,6 @@ namespace Problems
 {
 	class MaxsatNode : public Metaheuristic::Node<BitArray>
 	{
-	private:
-		MaxsatNode();
 	public:
 		~MaxsatNode() override = default;
 

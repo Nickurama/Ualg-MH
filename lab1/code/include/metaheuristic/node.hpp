@@ -10,21 +10,27 @@ concept Hashable = requires(T a, T b)
 	{ a == b } -> std::convertible_to<bool>;
 };
 
+template<typename Derived, typename Base>
+concept DerivedFrom = std::is_base_of_v<Base, Derived>;
+
 namespace Metaheuristic
 {
 	template<Hashable T>
 	class Node
 	{
 	private:
-		const Node<T> *m_parent; // non-owning
-		const T m_value;
-		const std::vector<std::unique_ptr<Node<T>>> m_children;
+		Node<T> *m_parent; // non-owning
+		std::unique_ptr<T> m_value;
+		std::vector<std::unique_ptr<Node<T>>> m_children;
 
 		// private constructor
 		Node(const Node<T> *parent, T value);
 		Node(const Node<T> *parent, T&& value);
 	
 	protected:
+		// constructors
+		Node();
+
 		// copy constructors
 		Node(const Node<T> &other) = delete;
 		Node<T> &operator=(const Node<T> &other) = delete;
@@ -49,12 +55,25 @@ namespace Metaheuristic
 		virtual bool operator==(const Node<T> &other) const; // should be true even if different parents, just equal values. (in the default implementation)
 
 		// constructors
+		// template<typename NodeDerivation>
+		// template<DerivedFrom<Node<T>> NodeDerivation>
+		template<DerivedFrom<Node<T>> NodeDerivation>
 		static std::unique_ptr<Node<T>> createRoot(T value); // transfers ownership to the caller
+
+		template<DerivedFrom<Node<T>> NodeDerivation>
 		static std::unique_ptr<Node<T>> createRoot(T&& value); // transfers ownership to the caller
-		Node<T>& createChild(T value); // ownership goes to the parent
-		Node<T>& createChild(T&& value); // ownership goes to the parent
+
+		template<DerivedFrom<Node<T>> NodeDerivation>
+		NodeDerivation& createChild(T value); // ownership goes to the parent
+
+		template<DerivedFrom<Node<T>> NodeDerivation>
+		NodeDerivation& createChild(T&& value); // ownership goes to the parent
 	};
 }
+
+// very helpful concept for classes that use Nodes
+template<typename Derived, typename T>
+concept NodeDerivation = std::is_base_of_v<Metaheuristic::Node<T>, Derived> && Hashable<T>;
 
 #include "metaheuristic/node.ipp"
 
