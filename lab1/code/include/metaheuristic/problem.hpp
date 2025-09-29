@@ -8,13 +8,15 @@ namespace Metaheuristic
 	template<typename NodeType, typename ProblemType>
 	class Problem
 	{
+	protected:
+		Problem() = default;
+
 	public:
-		Problem() = delete;
 		virtual ~Problem() = default;
 
 		// virtual functions
 		virtual const std::vector<std::unique_ptr<Node<NodeType>>>& getRootNodes() = 0;
-		virtual NeighborGenerator<NodeType>& getNeighborGenerator() const = 0;
+		virtual NeighborGenerator<NodeType>& getNeighborGenerator() = 0;
 		virtual void evaluate(const std::vector<Node<NodeType>*> nodes) = 0;
 		virtual bool shouldTerminate(const std::vector<Node<NodeType>*> nodes) const = 0;
 		virtual bool hasSolution() const = 0;

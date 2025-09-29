@@ -9,6 +9,9 @@ namespace Metaheuristic
 	template<typename T>
 	class NeighborGenerator
 	{
+	private:
+		NeighborGenerator();
+
 	public:
 		// pure virtual class
 		NeighborGenerator(const NeighborGenerator&) = delete;

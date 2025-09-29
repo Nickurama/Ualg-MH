@@ -13,9 +13,33 @@ Node<T>::Node(const Node<T> *parent, const T value) :
 }
 
 template<Hashable T>
+Node<T>::Node(const Node<T> *parent, T&& value) :
+	m_parent(parent),
+	m_value(std::move(value)),
+	m_children()
+{
+
+}
+
+template<Hashable T>
 std::unique_ptr<Node<T>> Node<T>::createRoot(T value)
 {
 	return std::unique_ptr<Node<T>>(new Node<T>(nullptr, value));
+}
+
+template<Hashable T>
+std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
+{
+	return std::unique_ptr<Node<T>>(new Node<T>(nullptr, std::move(value)));
+}
+
+template<Hashable T>
+Node<T>& Node<T>::createChild(T&& value)
+{
+	std::unique_ptr<Node<T>> child = std::make_unique<Node<T>>(this, std::move(value));
+	Node<T>& childRef = *child;
+	m_children.emplace_back(std::move(child));
+	return childRef;
 }
 
 template<Hashable T>

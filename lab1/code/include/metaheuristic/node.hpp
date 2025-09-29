@@ -22,6 +22,7 @@ namespace Metaheuristic
 
 		// private constructor
 		Node(const Node<T> *parent, T value);
+		Node(const Node<T> *parent, T&& value);
 	
 	protected:
 		// copy constructors
@@ -50,7 +51,9 @@ namespace Metaheuristic
 
 		// constructors
 		static std::unique_ptr<Node<T>> createRoot(T value); // transfers ownership to the caller
+		static std::unique_ptr<Node<T>> createRoot(T&& value); // transfers ownership to the caller
 		Node<T>& createChild(T value); // ownership goes to the parent
+		Node<T>& createChild(T&& value); // ownership goes to the parent
 	};
 }
 

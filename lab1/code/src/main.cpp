@@ -10,6 +10,7 @@
 #include "io/cnf_reader.hpp"
 #include "io/file_writer.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
+#include "problems/maxsat/maxsat_problem.hpp"
 
 using namespace Problems;
 using namespace Metaheuristic;
@@ -38,6 +39,12 @@ int main(int argc, char *argv[])
 
 	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot(ba);
 	std::cout << n->value()[119] << '\n';
+
+	std::vector<int32_t> test = {1, -3};
+	CnfClause i(std::move(test));
+	std::vector<CnfClause> clauses = { i };
+	MaxsatProblem p(std::move(clauses), 3);
+	p.getRootNodes();
 
 	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 
