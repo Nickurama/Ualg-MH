@@ -10,7 +10,7 @@ namespace Metaheuristic
 	class NeighborGenerator
 	{
 	protected:
-		NeighborGenerator();
+		NeighborGenerator() = default;
 
 	public:
 		// pure virtual class
@@ -30,7 +30,7 @@ namespace Metaheuristic
 
 		// iterative
 		virtual bool hasNextNeighbor(Node<T>) = 0;
-		virtual std::unique_ptr<Node<T>> getNextNeighbor(Node<T>) = 0;
+		virtual std::unique_ptr<Node<T>> getNextNeighbor(Node<T>& node) = 0;
 
 		// genetic
 		virtual std::unique_ptr<Node<T>> mutate(const Node<T>& node, double rate) = 0;

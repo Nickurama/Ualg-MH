@@ -35,10 +35,9 @@ namespace Metaheuristic
 
 	public:
 		virtual ~Node() = default;
-		inline Node<T> *parent() const;
-		inline const T &value() const;
+		Node<T> *parent() const;
+		const T& value() const;
 		bool operator!=(const Node<T> &other) const;
-		const T& value();
 
 		// virtual functions, meant to be overriden
 		virtual double fitness() const;
@@ -57,6 +56,8 @@ namespace Metaheuristic
 	};
 }
 
+#include "metaheuristic/node.ipp"
+
 namespace std
 {
 	template<Hashable T>
@@ -69,4 +70,3 @@ namespace std
 	};
 }
 
-# include "metaheuristic/node.ipp"

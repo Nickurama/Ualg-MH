@@ -1,4 +1,3 @@
-#pragma once
 #include "problems/maxsat/bit_array.hpp"
 #include <cstring>
 
@@ -12,12 +11,12 @@ BitArray::BitArray(size_t size) :
 	clearMemberArray();
 }
 
-inline void BitArray::copyMemberArray(BitArray& to, const BitArray& from)
+void BitArray::copyMemberArray(BitArray& to, const BitArray& from)
 {
 	memcpy(to.m_arr.get(), from.m_arr.get(), to.m_true_size * sizeof(uint64_t));
 }
 
-inline void BitArray::clearMemberArray()
+void BitArray::clearMemberArray()
 {
 	memset(m_arr.get(), 0, m_true_size * sizeof(uint64_t));
 }
@@ -47,29 +46,29 @@ BitArray& BitArray::operator=(BitArray&& other)
 	return *this;
 }
 
-inline void BitArray::verify(size_t k) const
+void BitArray::verify(size_t k) const
 {
 	if (k >= m_size_bits) // no need to check for k < 0 since it's unsigned
 		throw std::out_of_range("index " + std::to_string(k) + " out of range for " + std::to_string(m_size_bits) + ".");
 }
 
-inline size_t BitArray::getTrueIndexFromBit(size_t k)
+size_t BitArray::getTrueIndexFromBit(size_t k)
 {
 	return k / (sizeof(uint64_t) * 8);
 }
 
-inline char BitArray::getBitIndex(size_t k)
+char BitArray::getBitIndex(size_t k)
 {
 	return k % (sizeof(uint64_t) * 8);
 }
 
-inline bool BitArray::get(size_t k) const
+bool BitArray::get(size_t k) const
 {
 	verify(k);
 	return (m_arr[getTrueIndexFromBit(k)] >> getBitIndex(k)) & 1ul;
 }
 
-inline void BitArray::set(size_t k, bool value)
+void BitArray::set(size_t k, bool value)
 {
 	verify(k);
 	size_t true_index = getTrueIndexFromBit(k);
@@ -78,30 +77,30 @@ inline void BitArray::set(size_t k, bool value)
 	// m_arr[true_index] = value ? m_arr[true_index] | (1ul << getBitIndex(k)) : m_arr[true_index] & ~(1ul << getBitIndex(k));
 }
 
-inline void BitArray::flip(size_t k)
+void BitArray::flip(size_t k)
 {
 	verify(k);
 	size_t true_index = getTrueIndexFromBit(k);
 	m_arr[true_index] = m_arr[true_index] ^ (1ul << getBitIndex(k));
 }
 
-inline void BitArray::increment()
+void BitArray::increment()
 {
 	for (size_t i = 0; i < m_true_size; i++)
 		if (m_arr[i]++ == ~0ul) break;
 }
 
-inline size_t BitArray::size() const
+size_t BitArray::size() const
 {
 	return m_size_bits;
 }
 
-inline bool BitArray::operator[](size_t k) const
+bool BitArray::operator[](size_t k) const
 {
 	return get(k);
 }
 
-inline bool BitArray::operator==(const BitArray& other) const
+bool BitArray::operator==(const BitArray& other) const
 {
 	return this->m_size_bits == other.m_size_bits ? memcmp(this->m_arr.get(), other.m_arr.get(), this->m_true_size * sizeof(uint64_t)) : false;
 }

@@ -1,5 +1,7 @@
 # include "problems/maxsat/cnf_clause.hpp"
 
+using namespace Problems;
+
 // cnf should be 1-indexed, there can be no negative 0
 CnfClause::CnfClause(std::vector<int32_t>&& cnf) :
 	m_cnf(std::move(cnf))

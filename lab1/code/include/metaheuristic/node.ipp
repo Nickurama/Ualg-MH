@@ -52,7 +52,7 @@ Node<T>& Node<T>::createChild(T value)
 }
 
 template<Hashable T>
-const T& Node<T>::value()
+const T& Node<T>::value() const
 {
 	return m_value;
 }
@@ -61,12 +61,6 @@ template<Hashable T>
 Node<T> *Node<T>::parent() const
 {
 	return m_parent;
-}
-
-template<Hashable T>
-const T &Node<T>::value() const
-{
-	return *m_value;
 }
 
 template<Hashable T>

@@ -1,4 +1,6 @@
 #include "problems/maxsat/maxsat_problem.hpp"
+#include "problems/maxsat/maxsat_node.hpp"
+
 #include <iostream>
 
 using namespace Problems;
@@ -19,9 +21,9 @@ std::vector<std::unique_ptr<Node<BitArray>>> MaxsatProblem::genRootNodes() const
 
 const std::vector<std::unique_ptr<Node<BitArray>>>& MaxsatProblem::getRootNodes()
 {
-	// BitArray root_val(m_size);
-	// std::unique_ptr<Node<BitArray>> node = MaxsatNode::createRoot(root_val);
-	// node->fitness();
+	BitArray root_val(m_size);
+	std::unique_ptr<Node<BitArray>> node = MaxsatNode::createRoot(root_val);
+	node->fitness();
 	return m_root_nodes;
 }
 
