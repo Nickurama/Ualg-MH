@@ -46,6 +46,39 @@ int main(int argc, char *argv[])
 	MaxsatProblem p(std::move(clauses), 3);
 	p.getRootNodes();
 
+
+
+
+
+	BitArray b(65);
+	for (int i = 0; i < 65; i++)
+	{
+		b.set(i, 1);
+	}
+	b.set(64, 0);
+	for (int i = 0; i < 65; i++)
+	{
+		std::cout << b[64 - i];
+	}
+	std::cout << '\n';
+	b.increment();
+	for (int i = 0; i < 65; i++)
+	{
+		std::cout << b[64 - i];
+	}
+	std::cout << '\n';
+
+	BitArray c(16);
+	for (int j = 0; j < 10; j++)
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			std::cout << c[15 - i];
+		}
+		std::cout << '\n';
+		++c;
+	}
+
 	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
 
 	// Problems::MaxsatNode node0("owo");

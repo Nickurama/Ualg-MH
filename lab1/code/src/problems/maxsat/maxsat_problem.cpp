@@ -5,9 +5,9 @@
 
 using namespace Problems;
 
-MaxsatProblem::MaxsatProblem(std::vector<CnfClause>&& clauses, size_t size) :
+MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_size(size),
-	m_clauses(std::move(clauses)),
+	m_expression(std::move(expression)),
 	m_neighbor_generator(),
 	m_root_nodes(genRootNodes())
 {

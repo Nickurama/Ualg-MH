@@ -2,7 +2,7 @@
 
 #include "metaheuristic/problem.hpp"
 #include "problems/maxsat/bit_array.hpp"
-#include "problems/maxsat/cnf_clause.hpp"
+#include "problems/maxsat/cnf_expression.hpp"
 #include "problems/maxsat/maxsat_neighbor_generator.hpp"
 
 namespace Problems
@@ -11,14 +11,14 @@ namespace Problems
 	{
 	private:
 		size_t m_size;
-		std::vector<CnfClause> m_clauses;
+		CnfExpression m_expression;
 		MaxsatNeighborGenerator m_neighbor_generator;
 		const std::vector<std::unique_ptr<Node<BitArray>>> m_root_nodes;
 
 		std::vector<std::unique_ptr<Node<BitArray>>> genRootNodes() const;
 
 	public:
-		MaxsatProblem(std::vector<CnfClause>&& clauses, size_t size); // ownership transfer
+		MaxsatProblem(CnfExpression&& expression, size_t size); // ownership transfer
 		~MaxsatProblem() = default;
 
 		// virtual functions

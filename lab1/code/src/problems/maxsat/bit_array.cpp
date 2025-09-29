@@ -87,7 +87,7 @@ void BitArray::flip(size_t k)
 void BitArray::increment()
 {
 	for (size_t i = 0; i < m_true_size; i++)
-		if (m_arr[i]++ == ~0ul) break;
+		if (m_arr[i]++ != ~0ul) break;
 }
 
 size_t BitArray::size() const
@@ -103,6 +103,12 @@ bool BitArray::operator[](size_t k) const
 bool BitArray::operator==(const BitArray& other) const
 {
 	return this->m_size_bits == other.m_size_bits ? memcmp(this->m_arr.get(), other.m_arr.get(), this->m_true_size * sizeof(uint64_t)) : false;
+}
+
+BitArray& BitArray::operator++()
+{
+	increment();
+	return *this;
 }
 
 size_t BitArray::hash() const

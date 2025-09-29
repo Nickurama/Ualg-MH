@@ -26,6 +26,7 @@ namespace Problems
 		~BitArray() = default;
 		BitArray& operator=(const BitArray& other);
 		BitArray& operator=(BitArray&& other);
+		BitArray& operator++();
 
 		bool get(size_t k) const;
 		void set(size_t k, bool val);
