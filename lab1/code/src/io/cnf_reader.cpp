@@ -1,1 +1,1 @@
-#include "io/cnfReader.hpp"
+#include "io/cnf_reader.hpp"

@@ -40,7 +40,7 @@ namespace Problems
 	};
 }
 
-#include "problems/maxsat/bit_array.cpp"
+#include "problems/maxsat/bit_array.ipp"
 
 namespace std
 {

@@ -18,5 +18,3 @@ namespace Problems
 		// double cost() const override;
 	};
 }
-
-#include "problems/maxsat/maxsat_node.cpp"

@@ -1,7 +1,4 @@
-#pragma once
-
 #include "problems/maxsat/maxsat_problem.hpp"
-#include "problems/maxsat/maxsat_node.hpp"
 #include <iostream>
 
 using namespace Problems;

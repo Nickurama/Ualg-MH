@@ -29,5 +29,3 @@ namespace Problems
 		bool hasSolution() const;
 	};
 }
-
-#include "problems/maxsat/maxsat_problem.cpp"

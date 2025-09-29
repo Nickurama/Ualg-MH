@@ -9,7 +9,7 @@ namespace Metaheuristic
 	template<typename T>
 	class NeighborGenerator
 	{
-	private:
+	protected:
 		NeighborGenerator();
 
 	public:
