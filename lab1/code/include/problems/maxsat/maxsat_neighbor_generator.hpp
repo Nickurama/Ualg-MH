@@ -25,7 +25,7 @@ namespace Problems
 		//
 		// // iterative
 		// bool hasNextNeighbor(Node<BitArray>) override;
-		// std::unique_ptr<Node<BitArray>> getNextNeighbor(Node<BitArray>& node) override;
+		Node<BitArray>& getNextNeighbor(Node<BitArray>& node) override;
 		//
 		// // genetic
 		// std::unique_ptr<Node<BitArray>> mutate(const Node<BitArray>& node, double rate) override;

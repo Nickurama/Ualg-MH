@@ -25,6 +25,6 @@ namespace Metaheuristic
 		Solver(const Solver&&) = delete;
 		Solver& operator=(const Solver&&) = delete;
 
-		const Solution<SolutionType> solve();
+		std::unique_ptr<const Solution<SolutionType>> solve();
 	};
 }

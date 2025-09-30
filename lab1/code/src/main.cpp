@@ -6,14 +6,16 @@
 #include "metaheuristic/solution.hpp"
 #include "metaheuristic/solver.hpp"
 #include "metaheuristic/node.hpp"
+#include "io/file_io.hpp"
 #include "algorithms/naive_algorithm.hpp"
-#include "io/cnf_reader.hpp"
-#include "io/file_writer.hpp"
+#include "problems/maxsat/cnf_reader.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
 #include "problems/maxsat/maxsat_problem.hpp"
+#include "problems/maxsat/maxsat_solution.hpp"
 
 using namespace Problems;
 using namespace Metaheuristic;
+using namespace Algorithms;
 
 constexpr const char * DEFAULT_OUTPUT_FILE_NAME = "solved.out";
 
@@ -37,7 +39,7 @@ int main(int argc, char *argv[])
 	std::cout << ba[119] << '\n';
 	ba.flip(119);
 
-	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot<MaxsatNode>(ba);
+	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot<MaxsatNode>(std::move(ba));
 	std::cout << n->value()[119] << '\n';
 
 	std::vector<int32_t> test = {1, -3};
@@ -85,7 +87,10 @@ int main(int argc, char *argv[])
 	// Problems::MaxsatNode node1("owo");
 	// std::cout << (node0 == node1) << "\n";
 
-	std::unique_ptr<Problem> problem = CnfReader::read(input_filename);
-	// Solution solution = Solver.solve(problem, algorithm);
+	MaxsatProblem problem = CnfReader::read(input_filename);
+	NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
+	Solver<BitArray, uint32_t> solver(problem, algorithm);
+	std::unique_ptr<const Solution<uint32_t>> solution = solver.solve();
+	solution->print();
 	// FileWriter::write(solution.output(), output_filename);
 }

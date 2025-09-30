@@ -11,8 +11,8 @@ namespace Metaheuristic
 	public:
 		Solution(T value);
 		virtual ~Solution();
-		T value();
-		virtual void print();
+		T value() const;
+		virtual void print() const;
 	};
 }
 

@@ -11,16 +11,8 @@ Solver<NodeType, SolutionType>::Solver(Problem<NodeType, SolutionType>& problem,
 {
 }
 
-// note: some problems require problem knowledge to understand if the algorithm should terminate.
-// some other problems just require the algorithm to acknowledge it has found a solution.
-// problem solutions take priority to algorithm solutions.
-// with this, we achieve encapsulation in which the problem doesn't have to know what algorithm is
-// solving it, and likewise, the algorithm doesn't know what problem it is solving
-
-// that said, it could also be that the algorithm has terminated (has a solution),
-// but the problem also has a solution, in which case it should prioritize the problem's solution.
 template<typename NodeType, typename SolutionType>
-const Solution<SolutionType> Solver<NodeType, SolutionType>::solve()
+std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::solve()
 {
 	m_problem.evaluate(m_nodes);
 	m_algorithm.evaluate(m_nodes);
@@ -35,6 +27,7 @@ const Solution<SolutionType> Solver<NodeType, SolutionType>::solve()
 		m_algorithm.evaluate(m_nodes);
 	}
 
-	return m_problem.hasSolution() ? m_problem.getSolution() : m_algorithm.getCurrentSolution();
+	return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : m_problem.getCurrentSolution();
+	// return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_algorithm.getCurrentSolution());
 }
 

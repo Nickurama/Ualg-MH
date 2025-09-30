@@ -12,13 +12,13 @@ Solution<T>::Solution(T value) :
 }
 
 template<typename T>
-T Solution<T>::value()
+T Solution<T>::value() const
 {
 	return m_value;
 }
 
 template<typename T>
-void Solution<T>::print()
+void Solution<T>::print() const
 {
 	throw std::runtime_error("function not implemented.");
 }

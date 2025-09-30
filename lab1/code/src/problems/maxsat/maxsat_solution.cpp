@@ -9,7 +9,7 @@ MaxsatSolution::MaxsatSolution(uint32_t value) :
 {
 }
 
-void MaxsatSolution::print()
+void MaxsatSolution::print() const
 {
 	std::cout << value() << "\n";
 }

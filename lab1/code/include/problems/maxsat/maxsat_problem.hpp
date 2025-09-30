@@ -33,6 +33,7 @@ namespace Problems
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
-		std::unique_ptr<Solution<uint32_t>> getSolution() override;
+		std::unique_ptr<const Solution<uint32_t>> getSolution() override;
+		std::unique_ptr<const Solution<uint32_t>> getCurrentSolution() override;
 	};
 }
