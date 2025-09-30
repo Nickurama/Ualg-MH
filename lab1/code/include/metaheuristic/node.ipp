@@ -28,17 +28,6 @@ Node<T>::Node()
 
 template<Hashable T>
 template<DerivedFrom<Node<T>> NodeDerivation>
-std::unique_ptr<Node<T>> Node<T>::createRoot(T value)
-{
-	std::unique_ptr<Node<T>> result(new NodeDerivation());
-	result->m_parent = nullptr;
-	result->m_value = std::make_unique<T>(value);
-	result->m_children = std::vector<std::unique_ptr<Node<T>>>();
-	return result;
-}
-
-template<Hashable T>
-template<DerivedFrom<Node<T>> NodeDerivation>
 std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
 {
 	std::unique_ptr<Node<T>> result(new NodeDerivation());
@@ -46,16 +35,6 @@ std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
 	result->m_value = std::make_unique<T>(std::move(value));
 	result->m_children = std::vector<std::unique_ptr<Node<T>>>();
 	return result;
-}
-
-template<Hashable T>
-template<DerivedFrom<Node<T>> NodeDerivation>
-NodeDerivation& Node<T>::createChild(T value)
-{
-	std::unique_ptr<NodeDerivation> child = std::make_unique<NodeDerivation>(this, value);
-	NodeDerivation& childRef = *child;
-	m_children.emplace_back(std::move(child));
-	return childRef;
 }
 
 template<Hashable T>

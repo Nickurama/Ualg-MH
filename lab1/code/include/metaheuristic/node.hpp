@@ -58,13 +58,7 @@ namespace Metaheuristic
 		// template<typename NodeDerivation>
 		// template<DerivedFrom<Node<T>> NodeDerivation>
 		template<DerivedFrom<Node<T>> NodeDerivation>
-		static std::unique_ptr<Node<T>> createRoot(T value); // transfers ownership to the caller
-
-		template<DerivedFrom<Node<T>> NodeDerivation>
 		static std::unique_ptr<Node<T>> createRoot(T&& value); // transfers ownership to the caller
-
-		template<DerivedFrom<Node<T>> NodeDerivation>
-		NodeDerivation& createChild(T value); // ownership goes to the parent
 
 		template<DerivedFrom<Node<T>> NodeDerivation>
 		NodeDerivation& createChild(T&& value); // ownership goes to the parent

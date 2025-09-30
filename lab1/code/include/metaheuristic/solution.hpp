@@ -10,8 +10,9 @@ namespace Metaheuristic
 
 	public:
 		Solution(T value);
+		virtual ~Solution();
 		T value();
-		virtual void print() = 0;
+		virtual void print();
 	};
 }
 

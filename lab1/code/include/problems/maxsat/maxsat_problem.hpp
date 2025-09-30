@@ -7,25 +7,32 @@
 
 namespace Problems
 {
-	class MaxsatProblem : public Metaheuristic::Problem<BitArray, int>
+	class MaxsatProblem : public Metaheuristic::Problem<BitArray, uint32_t>
 	{
 	private:
-		size_t m_size;
-		CnfExpression m_expression;
-		MaxsatNeighborGenerator m_neighbor_generator;
+		const size_t m_size;
+		const uint64_t m_max_iter;
+		const CnfExpression m_expression;
 		const std::vector<std::unique_ptr<Node<BitArray>>> m_root_nodes;
+		MaxsatNeighborGenerator m_neighbor_generator;
+		std::vector<BitArray> m_solutions;
+		uint64_t m_iterations;
+		bool m_should_stop;
 
 		std::vector<std::unique_ptr<Node<BitArray>>> genRootNodes() const;
+		bool shouldTerminate() const;
+		constexpr uint64_t getMaxIterations(uint32_t k) const;
+		void evaluate(const Node<BitArray>* node);
 
 	public:
 		MaxsatProblem(CnfExpression&& expression, size_t size); // ownership transfer
 		~MaxsatProblem() = default;
 
-		// virtual functions
-		const std::vector<std::unique_ptr<Node<BitArray>>>& getRootNodes();
-		NeighborGenerator<BitArray>& getNeighborGenerator();
-		void evaluate(const std::vector<Node<BitArray>*> nodes);
-		bool shouldTerminate(const std::vector<Node<BitArray>*> nodes) const;
-		bool hasSolution() const;
+		const std::vector<std::unique_ptr<Node<BitArray>>>& getRootNodes() override;
+		NeighborGenerator<BitArray>& getNeighborGenerator() override;
+		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
+		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
+		bool hasSolution() const override;
+		std::unique_ptr<Solution<uint32_t>> getSolution() override;
 	};
 }

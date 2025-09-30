@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	// Problems::MaxsatNode node1("owo");
 	// std::cout << (node0 == node1) << "\n";
 
-	// Problem problem = CnfReader::read(input_filename);
+	std::unique_ptr<Problem> problem = CnfReader::read(input_filename);
 	// Solution solution = Solver.solve(problem, algorithm);
 	// FileWriter::write(solution.output(), output_filename);
 }
