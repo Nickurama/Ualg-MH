@@ -31,67 +31,11 @@ int main(int argc, char *argv[])
 	std::string algorithm_name = argv[2];
 	std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
 
-	BitArray ba(120);
-	std::cout << ba[119] << '\n';
-	ba.set(119, true);
-	std::cout << ba[119] << '\n';
-	ba.flip(119);
-	std::cout << ba[119] << '\n';
-	ba.flip(119);
-
-	std::unique_ptr<Node<BitArray>> n = MaxsatNode::createRoot<MaxsatNode>(std::move(ba));
-	std::cout << n->value()[119] << '\n';
-
-	std::vector<int32_t> test = {1, -3};
-	CnfClause i(std::move(test));
-	std::vector<CnfClause> clauses = { i };
-	MaxsatProblem p(std::move(clauses), 3);
-	p.getRootNodes();
-
-
-
-
-
-	BitArray b(65);
-	for (int i = 0; i < 65; i++)
-	{
-		b.set(i, 1);
-	}
-	b.set(64, 0);
-	for (int i = 0; i < 65; i++)
-	{
-		std::cout << b[64 - i];
-	}
-	std::cout << '\n';
-	b.increment();
-	for (int i = 0; i < 65; i++)
-	{
-		std::cout << b[64 - i];
-	}
-	std::cout << '\n';
-
-	BitArray c(16);
-	for (int j = 0; j < 10; j++)
-	{
-		for (int i = 0; i < 16; i++)
-		{
-			std::cout << c[15 - i];
-		}
-		std::cout << '\n';
-		++c;
-	}
-
-	// std::unique_ptr<Metaheuristic::Algorithm> algorithm = std::make_unique<Algorithms::NaiveAlgorithm>();
-
-	// Problems::MaxsatNode node0("owo");
-	// Problems::MaxsatNode node1("owo");
-	// std::cout << (node0 == node1) << "\n";
-
 	CnfReader cnfReader(input_filename);
-	MaxsatProblem problem = cnfReader.read();
+	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
 	NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
-	Solver<BitArray, uint32_t> solver(problem, algorithm);
+	Solver<BitArray, uint32_t> solver(*problem, algorithm);
 	std::unique_ptr<const Solution<uint32_t>> solution = solver.solve();
-	solution->print();
-	// FileWriter::write(solution.output(), output_filename);
+	std::cout << solution->output() << "\n";
+	// IO::FileIO::write(solution->output(), output_filename);
 }

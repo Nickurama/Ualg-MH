@@ -35,6 +35,7 @@ namespace Problems
 
 		size_t hash() const;
 		size_t size() const;
+		std::string str() const;
 
 		bool operator[](size_t index) const;
 		bool operator==(const BitArray& other) const;

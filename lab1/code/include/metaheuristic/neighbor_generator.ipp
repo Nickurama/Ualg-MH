@@ -14,13 +14,13 @@ std::vector<Node<T>*> NeighborGenerator<T>::getRandomNeighbors(const Node<T>&, i
 }
 
 template<Hashable T>
-Node<T>& NeighborGenerator<T>::getRandomNeighbor(const Node<T>&)
+Node<T>* NeighborGenerator<T>::getRandomNeighbor(const Node<T>&)
 {
 	throw std::runtime_error("function not implemented.");
 }
 
 template<Hashable T>
-Node<T>& NeighborGenerator<T>::getRandomNode()
+Node<T>* NeighborGenerator<T>::getRandomNode()
 {
 	throw std::runtime_error("function not implemented.");
 }
@@ -32,19 +32,19 @@ bool NeighborGenerator<T>::hasNextNeighbor(Node<T>)
 }
 
 template<Hashable T>
-Node<T>& NeighborGenerator<T>::getNextNeighbor(Node<T>&)
+Node<T>* NeighborGenerator<T>::getNextNeighbor(Node<T>&)
 {
 	throw std::runtime_error("function not implemented.");
 }
 
 template<Hashable T>
-Node<T>& NeighborGenerator<T>::mutate(const Node<T>&, double)
+Node<T>* NeighborGenerator<T>::mutate(const Node<T>&, double)
 {
 	throw std::runtime_error("function not implemented.");
 }
 
 template<Hashable T>
-Node<T>& NeighborGenerator<T>::crossover(const Node<T>&, const Node<T>&)
+Node<T>* NeighborGenerator<T>::crossover(const Node<T>&, const Node<T>&)
 {
 	throw std::runtime_error("function not implemented.");
 }

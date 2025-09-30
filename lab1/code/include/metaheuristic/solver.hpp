@@ -12,7 +12,7 @@ namespace Metaheuristic
 	class Solver
 	{
 	private:
-		const Problem<NodeType, SolutionType>& m_problem;
+		Problem<NodeType, SolutionType>& m_problem;
 		Algorithm<NodeType>& m_algorithm;
 		NeighborGenerator<NodeType>& m_neighborGenerator;
 		std::vector<Node<NodeType>*> m_nodes;
@@ -28,3 +28,5 @@ namespace Metaheuristic
 		std::unique_ptr<const Solution<SolutionType>> solve();
 	};
 }
+
+#include <metaheuristic/solver.ipp>

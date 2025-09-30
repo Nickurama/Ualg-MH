@@ -25,16 +25,16 @@ namespace Metaheuristic
 
 		// randomness
 		virtual std::vector<Node<T>*> getRandomNeighbors(const Node<T>& node, int k);
-		virtual Node<T>& getRandomNeighbor(const Node<T>& node);
-		virtual Node<T>& getRandomNode();
+		virtual Node<T>* getRandomNeighbor(const Node<T>& node);
+		virtual Node<T>* getRandomNode();
 
 		// iterative
 		virtual bool hasNextNeighbor(Node<T>);
-		virtual Node<T>& getNextNeighbor(Node<T>& node);
+		virtual Node<T>* getNextNeighbor(Node<T>& node);
 
 		// genetic
-		virtual Node<T>& mutate(const Node<T>& node, double rate);
-		virtual Node<T>& crossover(const Node<T>& first, const Node<T>& second);
+		virtual Node<T>* mutate(const Node<T>& node, double rate);
+		virtual Node<T>* crossover(const Node<T>& first, const Node<T>& second);
 	};
 }
 

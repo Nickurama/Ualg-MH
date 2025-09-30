@@ -1,4 +1,6 @@
+#pragma once
 #include "metaheuristic/solver.hpp"
+#include <iostream>
 
 using namespace Metaheuristic;
 
@@ -7,8 +9,13 @@ Solver<NodeType, SolutionType>::Solver(Problem<NodeType, SolutionType>& problem,
 	m_problem(problem),
 	m_algorithm(algorithm),
 	m_neighborGenerator(problem.getNeighborGenerator()),
-	m_nodes(problem.getRootNodes())
+	m_nodes()
 {
+	const std::vector<std::unique_ptr<Node<NodeType>>>& root_nodes = problem.getRootNodes();
+	for (size_t i = 0; i < root_nodes.size(); i++)
+	{
+		m_nodes.emplace_back(root_nodes[i].get());
+	}
 }
 
 template<typename NodeType, typename SolutionType>
@@ -16,10 +23,10 @@ std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::so
 {
 	m_problem.evaluate(m_nodes);
 	m_algorithm.evaluate(m_nodes);
-	while (m_problem.shouldTerminate(m_nodes) || m_algorithm.shouldTerminate(m_nodes))
+	while (!m_problem.shouldTerminate(m_nodes) && !m_algorithm.shouldTerminate(m_nodes))
 	{
 		// generate neighbors
-		std::vector<std::unique_ptr<Node<NodeType>>> neighbors = m_algorithm.getNeighbors(m_nodes, m_neighborGenerator);
+		std::vector<Node<NodeType>*> neighbors = m_algorithm.getNeighbors(m_nodes, m_neighborGenerator);
 		// pick nodes to be used
 		m_nodes = m_algorithm.chooseNodes(m_nodes, neighbors);
 		// give nodes to execute inner logic and to see if a solution has been found solutions

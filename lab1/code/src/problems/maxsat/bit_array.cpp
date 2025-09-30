@@ -1,5 +1,6 @@
 #include "problems/maxsat/bit_array.hpp"
 #include <cstring>
+#include <sstream>
 
 using namespace Problems;
 
@@ -119,4 +120,14 @@ size_t BitArray::hash() const
 		seed ^= std::hash<uint64_t>{}(m_arr[i]) + 0x9e3779b9 + (seed << 6) + (seed >> 2); // integral part of the golden ratio's fractional part
 	}
 	return seed;
+}
+
+std::string BitArray::str() const
+{
+	std::ostringstream os;
+	for(size_t i = (m_size_bits - 1); i != ~0ul; i--)
+	{
+		os << get(i);
+	}
+	return os.str();
 }

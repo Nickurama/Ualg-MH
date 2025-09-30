@@ -13,7 +13,9 @@ namespace Algorithms
 
 		void evaluate(const std::vector<Node<T>*>& nodes);
 		bool shouldTerminate(const std::vector<Node<T>*>& nodes) const;
-		std::vector<std::unique_ptr<Node<T>>> getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen);
+		std::vector<Node<T>*> getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen);
 		const std::vector<Node<T>*> chooseNodes(const std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors);
 	};
 }
+
+#include "algorithms/naive_algorithm.ipp"

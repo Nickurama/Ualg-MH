@@ -1,6 +1,7 @@
 #include "problems/maxsat/maxsat_problem.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
 #include "problems/maxsat/maxsat_solution.hpp"
+#include <iostream>
 
 using namespace Problems;
 
@@ -67,7 +68,7 @@ constexpr uint64_t MaxsatProblem::getMaxIterations(uint32_t k) const
 // no matter what algorithm is being used, if it goes over this, the problem deems that it should be stopped
 bool MaxsatProblem::shouldTerminate() const
 {
-	return m_iterations >= m_max_iter || m_should_stop;
+	return (m_iterations >= m_max_iter) || m_should_stop;
 }
 
 bool MaxsatProblem::shouldTerminate(const std::vector<Node<BitArray>*>&) const

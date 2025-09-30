@@ -14,6 +14,6 @@ namespace Problems
 		void skipTillEndline();
 	public:
 		CnfReader(const std::string& filename);
-		MaxsatProblem read();
+		std::unique_ptr<MaxsatProblem> read();
 	};
 }

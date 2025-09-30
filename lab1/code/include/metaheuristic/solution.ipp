@@ -18,7 +18,7 @@ T Solution<T>::value() const
 }
 
 template<typename T>
-void Solution<T>::print() const
+std::string Solution<T>::output() const
 {
 	throw std::runtime_error("function not implemented.");
 }

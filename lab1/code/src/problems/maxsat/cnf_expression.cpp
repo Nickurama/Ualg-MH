@@ -1,4 +1,5 @@
 # include "problems/maxsat/cnf_expression.hpp"
+#include <iostream>
 
 using namespace Problems;
 

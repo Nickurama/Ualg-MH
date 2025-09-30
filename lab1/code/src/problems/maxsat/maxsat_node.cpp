@@ -5,7 +5,6 @@ using namespace Problems;
 
 double MaxsatNode::fitness() const
 {
-	std::cout << "hello :3\n";
 	return 0.0;
 }
 

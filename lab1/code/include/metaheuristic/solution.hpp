@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 namespace Metaheuristic
 {
 	template<typename T>
@@ -10,9 +11,9 @@ namespace Metaheuristic
 
 	public:
 		Solution(T value);
-		virtual ~Solution();
+		virtual ~Solution() = default;
 		T value() const;
-		virtual void print() const;
+		virtual std::string output() const;
 	};
 }
 

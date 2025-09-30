@@ -10,6 +10,6 @@ namespace Problems
 	public:
 		MaxsatSolution(uint32_t value);
 		~MaxsatSolution() = default;
-		void print() const override;
+		std::string output() const override;
 	};
 }

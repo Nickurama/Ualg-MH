@@ -1,4 +1,5 @@
 # include "problems/maxsat/cnf_clause.hpp"
+#include <iostream>
 
 using namespace Problems;
 
@@ -13,17 +14,18 @@ bool CnfClause::evaluate(const BitArray& arr) const
 {
 	for (int32_t val : m_cnf)
 	{
-		int32_t abs_val = val & 0x7FFFFFFF;
+		// int32_t abs_val = (val + 2) & 0x7FFFFFFF;
+		int32_t abs_val_i = std::abs(val) - 1;
 		if (val < 0)
 		{
-			if (!arr[abs_val])
+			if (!arr[abs_val_i])
 			{
 				return true;
 			}
 		}
 		else
 		{
-			if (arr[abs_val])
+			if (arr[abs_val_i])
 			{
 				return true;
 			}
