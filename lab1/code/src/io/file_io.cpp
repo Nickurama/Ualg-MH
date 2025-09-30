@@ -35,7 +35,12 @@ size_t FileIO::fileSize(const std::string& filename)
 
 void FileIO::write(const std::string& contents, const std::string& filename)
 {
+	std::ofstream file(filename, std::ios::binary);
+	if (!file) throw std::runtime_error(std::format("cannot write to file \"{}\".", filename));
 
-	// file.flush();
-	// file.close();
+	file.write(contents.data(), contents.size());
+	if (!file.good()) throw std::runtime_error(std::format("cannot write to file \"{}\".", filename));
+
+	file.flush();
+	file.close();
 }
