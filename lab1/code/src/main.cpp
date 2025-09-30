@@ -87,7 +87,8 @@ int main(int argc, char *argv[])
 	// Problems::MaxsatNode node1("owo");
 	// std::cout << (node0 == node1) << "\n";
 
-	MaxsatProblem problem = CnfReader::read(input_filename);
+	CnfReader cnfReader(input_filename);
+	MaxsatProblem problem = cnfReader.read();
 	NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
 	Solver<BitArray, uint32_t> solver(problem, algorithm);
 	std::unique_ptr<const Solution<uint32_t>> solution = solver.solve();
