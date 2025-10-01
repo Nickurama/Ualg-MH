@@ -35,5 +35,5 @@ template<typename T>
 const std::vector<Node<T>*> NaiveAlgorithm<T>::chooseNodes(const std::vector<Node<T>*>&, const std::vector<Node<T>*>& neighbors)
 {
 	// naive algorithm doesn't concern itself with choosing
-	return { std::move(neighbors[0]) };
+	return { neighbors[0] };
 }

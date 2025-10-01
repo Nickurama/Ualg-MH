@@ -40,7 +40,7 @@ namespace Metaheuristic
 		Node<T> &operator=(Node<T> &&other) = default;
 
 	public:
-		virtual ~Node() = default;
+		virtual ~Node();
 		Node<T> *parent() const;
 		const T& value() const;
 		bool operator!=(const Node<T> &other) const;

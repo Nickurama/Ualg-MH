@@ -1,5 +1,7 @@
 #pragma once
 #include "metaheuristic/node.hpp"
+#include <queue>
+#include <stack>
 
 using namespace Metaheuristic;
 
@@ -24,6 +26,31 @@ Node<T>::Node(const Node<T> *parent, T&& value) :
 template<Hashable T>
 Node<T>::Node()
 {
+}
+
+template<Hashable T>
+Node<T>::~Node()
+{
+	if (m_parent != nullptr) return;
+
+	std::stack<std::unique_ptr<Node<T>>> nodes;
+	for (std::unique_ptr<Node<T>>& child : m_children)
+	{
+		nodes.push(std::move(child));
+	}
+
+	while (!nodes.empty())
+	{
+		std::unique_ptr<Node<T>> current = std::move(nodes.top());
+		nodes.pop();
+
+		for (std::unique_ptr<Node<T>>& child : current->m_children)
+		{
+			nodes.push(std::move(child));
+		}
+
+		current->m_children.clear();
+	}
 }
 
 template<Hashable T>

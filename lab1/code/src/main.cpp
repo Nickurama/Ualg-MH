@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <chrono>
 
 #include "metaheuristic/algorithm.hpp"
 #include "metaheuristic/problem.hpp"
@@ -34,8 +35,15 @@ int main(int argc, char *argv[])
 	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
 	NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
 	Solver<BitArray, std::vector<BitArray>> solver(*problem, algorithm);
+
+	auto start = std::chrono::high_resolution_clock::now();
+
 	std::unique_ptr<const Solution<std::vector<BitArray>>> solution = solver.solve();
+
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = duration_cast<std::chrono::milliseconds>(end - start);
+
 	std::cout << solution->output() << "\n";
+	std::cout << "elapsed: " << duration.count() << "ms\n";
 	// IO::FileIO::write(solution->output(), output_filename);
-	std::cout << "owo\n";
 }
