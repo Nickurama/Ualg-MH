@@ -12,7 +12,7 @@ namespace Metaheuristic
 	public:
 		Solution(T value);
 		virtual ~Solution() = default;
-		T value() const;
+		const T& value() const;
 		virtual std::string output() const;
 	};
 }

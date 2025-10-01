@@ -12,7 +12,7 @@ Solution<T>::Solution(T value) :
 }
 
 template<typename T>
-T Solution<T>::value() const
+const T& Solution<T>::value() const
 {
 	return m_value;
 }

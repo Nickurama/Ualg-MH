@@ -39,8 +39,12 @@ namespace Problems
 
 		bool operator[](size_t index) const;
 		bool operator==(const BitArray& other) const;
+		// std::ostream& operator<<(std::ostream& os);
+		// friend std::ostream& operator<<(std::ostream& os, const BitArray& obj);
 	};
 }
+
+std::ostream& operator<<(std::ostream& os, const Problems::BitArray& obj);
 
 namespace std
 {

@@ -7,7 +7,7 @@
 
 namespace Problems
 {
-	class MaxsatProblem : public Metaheuristic::Problem<BitArray, uint32_t>
+	class MaxsatProblem : public Metaheuristic::Problem<BitArray, std::vector<BitArray>>
 	{
 	private:
 		const size_t m_size;
@@ -33,7 +33,7 @@ namespace Problems
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
-		std::unique_ptr<const Solution<uint32_t>> getSolution() override;
-		std::unique_ptr<const Solution<uint32_t>> getCurrentSolution() override;
+		std::unique_ptr<const Solution<std::vector<BitArray>>> getSolution() override;
+		std::unique_ptr<const Solution<std::vector<BitArray>>> getCurrentSolution() override;
 	};
 }

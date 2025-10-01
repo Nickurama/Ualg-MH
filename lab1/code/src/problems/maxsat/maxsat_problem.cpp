@@ -81,12 +81,12 @@ bool MaxsatProblem::hasSolution() const
 	return shouldTerminate();
 }
 
-std::unique_ptr<const Solution<uint32_t>> MaxsatProblem::getSolution()
+std::unique_ptr<const Solution<std::vector<BitArray>>> MaxsatProblem::getSolution()
 {
-	return std::make_unique<MaxsatSolution>(m_solutions.size());
+	return std::make_unique<MaxsatSolution>(m_solutions);
 }
 
-std::unique_ptr<const Solution<uint32_t>> MaxsatProblem::getCurrentSolution()
+std::unique_ptr<const Solution<std::vector<BitArray>>> MaxsatProblem::getCurrentSolution()
 {
 	return getSolution();
 }

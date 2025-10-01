@@ -1,14 +1,16 @@
 #pragma once
 
 #include "metaheuristic/solution.hpp"
+#include "problems/maxsat/bit_array.hpp"
 #include <cstdint>
+#include <vector>
 
 namespace Problems
 {
-	class MaxsatSolution : public Solution<uint32_t>
+	class MaxsatSolution : public Solution<std::vector<BitArray>>
 	{
 	public:
-		MaxsatSolution(uint32_t value);
+		MaxsatSolution(std::vector<BitArray> value);
 		~MaxsatSolution() = default;
 		std::string output() const override;
 	};

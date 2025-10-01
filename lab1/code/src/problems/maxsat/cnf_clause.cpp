@@ -15,7 +15,8 @@ bool CnfClause::evaluate(const BitArray& arr) const
 	for (int32_t val : m_cnf)
 	{
 		// int32_t abs_val = (val + 2) & 0x7FFFFFFF;
-		int32_t abs_val_i = std::abs(val) - 1;
+		// int32_t abs_val_i = std::abs(val) - 1;
+		int32_t abs_val_i = arr.size() - std::abs(val); // left to right semantic
 		if (val < 0)
 		{
 			if (!arr[abs_val_i])

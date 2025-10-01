@@ -131,3 +131,16 @@ std::string BitArray::str() const
 	}
 	return os.str();
 }
+
+// std::ostream& BitArray::operator<<(std::ostream& os)
+// {
+// 	os << str();
+// 	return os;
+// }
+
+std::ostream& operator<<(std::ostream& os, const BitArray& obj)
+{
+	os << obj.str();
+	return os;
+}
+
