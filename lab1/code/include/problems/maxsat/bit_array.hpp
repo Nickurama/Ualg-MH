@@ -17,9 +17,10 @@ namespace Problems
 		static size_t getTrueIndexFromBit(size_t k);
 		static char getBitIndex(size_t k);
 		void clearMemberArray();
-		void verify(size_t k) const;
+		// void verify(size_t k) const;
 
 	public:
+		BitArray();
 		BitArray(size_t size);
 		BitArray(const BitArray& other);
 		BitArray(BitArray&& other) = default;

@@ -20,7 +20,7 @@ namespace Metaheuristic
 	{
 	private:
 		Node<T> *m_parent; // non-owning
-		std::unique_ptr<T> m_value;
+		T m_value;
 		std::vector<std::unique_ptr<Node<T>>> m_children;
 
 		// private constructor

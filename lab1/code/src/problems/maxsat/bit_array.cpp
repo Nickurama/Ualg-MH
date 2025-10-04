@@ -1,8 +1,17 @@
 #include "problems/maxsat/bit_array.hpp"
+#include <cassert>
 #include <cstring>
 #include <sstream>
 
 using namespace Problems;
+
+BitArray::BitArray() :
+	m_true_size(0),
+	m_size_bits(0),
+	m_arr(nullptr)
+{
+	clearMemberArray();
+}
 
 BitArray::BitArray(size_t size) :
 	m_true_size((size + (sizeof(uint64_t) * 8) - 1) / (sizeof(unsigned long) * 8)), // will do +1 when there's a remainder by the division
@@ -47,31 +56,36 @@ BitArray& BitArray::operator=(BitArray&& other)
 	return *this;
 }
 
-void BitArray::verify(size_t k) const
-{
-	if (k >= m_size_bits) // no need to check for k < 0 since it's unsigned
-		throw std::out_of_range("index " + std::to_string(k) + " out of range for " + std::to_string(m_size_bits) + ".");
-}
+// void BitArray::verify(size_t k) const
+// {
+// 	// assert(k < m_size_bits);
+// 	// if (k >= m_size_bits) // no need to check for k < 0 since it's unsigned
+// 	// 	throw std::out_of_range("index " + std::to_string(k) + " out of range for " + std::to_string(m_size_bits) + ".");
+// }
 
 size_t BitArray::getTrueIndexFromBit(size_t k)
 {
+	// return k >> 6;
 	return k / (sizeof(uint64_t) * 8);
 }
 
 char BitArray::getBitIndex(size_t k)
 {
+	// return k & 0x3F;
 	return k % (sizeof(uint64_t) * 8);
 }
 
 bool BitArray::get(size_t k) const
 {
-	verify(k);
+	// verify(k);
+	assert(k < m_size_bits);
 	return (m_arr[getTrueIndexFromBit(k)] >> getBitIndex(k)) & 1ul;
 }
 
 void BitArray::set(size_t k, bool value)
 {
-	verify(k);
+	// verify(k);
+	assert(k < m_size_bits);
 	size_t true_index = getTrueIndexFromBit(k);
 	char bit_index = getBitIndex(k);
 	m_arr[true_index] = (m_arr[true_index] & ~(1ul << bit_index)) | ((uint64_t)value << bit_index);
@@ -80,7 +94,8 @@ void BitArray::set(size_t k, bool value)
 
 void BitArray::flip(size_t k)
 {
-	verify(k);
+	// verify(k);
+	assert(k < m_size_bits);
 	size_t true_index = getTrueIndexFromBit(k);
 	m_arr[true_index] = m_arr[true_index] ^ (1ul << getBitIndex(k));
 }

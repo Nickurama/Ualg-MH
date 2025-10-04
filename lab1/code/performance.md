@@ -1,0 +1,1 @@
+- BitArray::verify shaves off a few ms of computational time (~5ms out of 200ms)
