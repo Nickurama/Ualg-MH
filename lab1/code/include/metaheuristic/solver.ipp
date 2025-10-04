@@ -31,7 +31,7 @@ std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::so
 		neighbors.clear();
 		m_algorithm.getNeighbors(m_nodes, m_neighborGenerator, neighbors);
 		// pick nodes to be used
-		m_nodes = m_algorithm.chooseNodes(m_nodes, neighbors);
+		m_algorithm.chooseNodes(m_nodes, neighbors);
 		// give nodes to execute inner logic and to see if a solution has been found solutions
 		m_problem.evaluate(m_nodes);
 	}

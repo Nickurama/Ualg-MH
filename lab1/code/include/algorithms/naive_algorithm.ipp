@@ -24,20 +24,11 @@ void NaiveAlgorithm<T>::getNeighbors(const std::vector<Node<T>*>& nodes, Neighbo
 {
 	// naive algorithm always chooses the next node
 	neighbors.emplace_back(gen.getNextNeighbor(*nodes[0]));
-
-	// neighbors.clear();
-	// neighbors.emplace_back(nextNeighbor);
-
-	// std::vector<Node<T>*> vect;
-	// vect.emplace_back(gen.getNextNeighbor(nodes[0]));
-	// neighbors.emplace_back();
-	// return neighbors;
-	// return { std::make_unique<Node<T>>(std::move(gen.getNextNeighbor(nodes[0]))) };
 }
 
 template<typename T>
-const std::vector<Node<T>*> NaiveAlgorithm<T>::chooseNodes(const std::vector<Node<T>*>&, const std::vector<Node<T>*>& neighbors)
+void NaiveAlgorithm<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors)
 {
 	// naive algorithm doesn't concern itself with choosing
-	return { neighbors[0] };
+	nodes[0] = neighbors[0];
 }
