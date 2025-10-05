@@ -59,7 +59,7 @@ std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
 {
 	std::unique_ptr<Node<T>> result(new NodeDerivation());
 	result->m_parent = nullptr;
-	result->m_value = std::make_unique<T>(std::move(value));
+	result->m_value = std::move(value);
 	result->m_children = std::vector<std::unique_ptr<Node<T>>>();
 	return result;
 }
@@ -68,19 +68,17 @@ template<Hashable T>
 template<DerivedFrom<Node<T>> NodeDerivation>
 Node<T>& Node<T>::createChild(T&& value)
 {
-	std::unique_ptr<Node<T>> child(new NodeDerivation());
+	std::unique_ptr<Node<T>>& child = m_children.emplace_back(std::make_unique<NodeDerivation>());
 	child->m_parent = this;
-	child->m_value = std::make_unique<T>(std::move(value));
+	child->m_value = std::move(value);
 	child->m_children = std::vector<std::unique_ptr<Node<T>>>();
-	Node<T>& childRef = *child;
-	m_children.emplace_back(std::move(child));
-	return childRef;
+	return *child;
 }
 
 template<Hashable T>
 const T& Node<T>::value() const
 {
-	return *m_value;
+	return m_value;
 }
 
 template<Hashable T>
@@ -99,7 +97,7 @@ bool Node<T>::operator!=(const Node<T> &other) const
 template<Hashable T>
 size_t Node<T>::hash() const
 {
-	return std::hash<T>{}(*m_value);
+	return std::hash<T>{}(m_value);
 }
 
 template<Hashable T>

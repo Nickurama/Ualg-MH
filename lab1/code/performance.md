@@ -1,0 +1,1 @@
+- Node::createChild() is really heavy because of "new"
