@@ -1,1 +1,1 @@
-- BitArray::verify shaves off a few ms of computational time (~5ms out of 200ms)
+- Node::createChild() is really heavy because of "new"

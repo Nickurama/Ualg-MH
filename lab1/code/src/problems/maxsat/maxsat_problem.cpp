@@ -43,7 +43,7 @@ void MaxsatProblem::evaluate(const std::vector<Node<BitArray>*>& nodes)
 		return;
 	}
 
-	for (Node<BitArray>* node : nodes)
+	for (const Node<BitArray>* node : nodes)
 	{
 		evaluate(node);
 	}

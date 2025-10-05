@@ -10,9 +10,9 @@ MaxsatNeighborGenerator::MaxsatNeighborGenerator()
 
 Node<BitArray>* MaxsatNeighborGenerator::getNextNeighbor(Node<BitArray>& node)
 {
-	BitArray next_arr = node.value(); // copies
-	next_arr.increment();
-	return &node.createChild<MaxsatNode>(std::move(next_arr));
+	// dangerous! but very efficient.
+	const_cast<BitArray&>(node.value()).increment();
+	return &node;
 	// BitArray next_arr = node.value(); // copies
 	// next_arr.increment();
 	// return &node.createChild<MaxsatNode>(std::move(next_arr));
