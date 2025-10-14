@@ -23,5 +23,6 @@ namespace Problems
 		CnfExpression& operator=(CnfExpression&& other) = default;
 
 		bool evaluate(const BitArray& arr) const;
+		uint64_t evaluateNum(const BitArray& arr) const;
 	};
 }

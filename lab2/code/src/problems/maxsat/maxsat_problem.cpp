@@ -16,6 +16,7 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_iterations(0),
 	m_should_stop(false)
 {
+	MaxsatNode::setProblem(const_cast<MaxsatProblem&>(*this));
 }
 
 std::vector<std::unique_ptr<Node<BitArray>>> MaxsatProblem::genRootNodes() const
@@ -58,6 +59,11 @@ void MaxsatProblem::evaluate(const Node<BitArray>* node)
 	{
 		m_solutions.emplace_back(node->value());
 	}
+}
+
+uint64_t MaxsatProblem::evaluate(const BitArray& bits) const
+{
+	return m_expression.evaluateNum(bits);
 }
 
 constexpr uint64_t MaxsatProblem::getMaxIterations(uint32_t k) const

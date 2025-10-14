@@ -5,9 +5,13 @@ using namespace Problems;
 
 double MaxsatNode::fitness() const
 {
-	return 0.0;
+	return maxsat_problem->evaluate(value());
 }
 
+void MaxsatNode::setProblem(const MaxsatProblem& problem)
+{
+	MaxsatNode::maxsat_problem = &problem;
+}
 
 // double MaxsatNode::heuristic() const
 // {

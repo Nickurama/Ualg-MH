@@ -13,7 +13,7 @@ namespace Problems
 	class MaxsatNeighborGenerator : public NeighborGenerator<BitArray>
 	{
 	private:
-		void getHammingNeighbors(BitArray& curr, uint32_t distance, std::vector<Node<BitArray>*>& neighbors, size_t start, const Node<BitArray>& root)
+		void getHammingNeighbors(BitArray& curr, uint32_t distance, std::vector<Node<BitArray>*>& neighbors, size_t start, const Node<BitArray>& root);
 
 	public:
 		MaxsatNeighborGenerator();

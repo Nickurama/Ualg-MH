@@ -15,3 +15,11 @@ bool CnfExpression::evaluate(const BitArray& arr) const
 		if (!clause.evaluate(arr)) return false;
 	return true;
 }
+
+uint64_t CnfExpression::evaluateNum(const BitArray& arr) const
+{
+	uint64_t counter = 0;
+	for (const CnfClause& clause : m_clauses)
+		if (clause.evaluate(arr)) counter++;
+	return counter;
+}

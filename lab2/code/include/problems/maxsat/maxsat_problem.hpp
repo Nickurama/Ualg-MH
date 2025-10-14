@@ -31,6 +31,7 @@ namespace Problems
 		const std::vector<std::unique_ptr<Node<BitArray>>>& getRootNodes() override;
 		NeighborGenerator<BitArray>& getNeighborGenerator() override;
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
+		uint64_t evaluate(const BitArray& bits) const;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
 		std::unique_ptr<const Solution<std::vector<BitArray>>> getSolution() override;
