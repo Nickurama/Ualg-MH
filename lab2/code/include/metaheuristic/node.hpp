@@ -21,7 +21,7 @@ namespace Metaheuristic
 	private:
 		Node<T> *m_parent; // non-owning
 		T m_value;
-		std::vector<std::unique_ptr<Node<T>>> m_children;
+		mutable std::vector<std::unique_ptr<Node<T>>> m_children;
 
 		// private constructor
 		Node(const Node<T> *parent, T value);
@@ -61,7 +61,7 @@ namespace Metaheuristic
 		static std::unique_ptr<Node<T>> createRoot(T&& value); // transfers ownership to the caller
 
 		template<DerivedFrom<Node<T>> NodeDerivation>
-		Node<T>& createChild(T&& value); // ownership goes to the parent
+		Node<T>& createChild(T&& value) const; // ownership goes to the parent
 	};
 }
 

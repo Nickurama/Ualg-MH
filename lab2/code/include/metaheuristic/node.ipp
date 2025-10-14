@@ -66,7 +66,7 @@ std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
 
 template<Hashable T>
 template<DerivedFrom<Node<T>> NodeDerivation>
-Node<T>& Node<T>::createChild(T&& value)
+Node<T>& Node<T>::createChild(T&& value) const
 {
 	std::unique_ptr<Node<T>>& child = m_children.emplace_back(std::make_unique<NodeDerivation>());
 	child->m_parent = this;

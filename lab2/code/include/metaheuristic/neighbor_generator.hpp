@@ -22,6 +22,7 @@ namespace Metaheuristic
 
 		// state-space
 		virtual std::vector<Node<T>*> getAllNeighbors(const Node<T>& node);
+		virtual std::vector<Node<T>*> getHammingNeighbors(const Node<T>& node, uint32_t distance);
 
 		// randomness
 		virtual std::vector<Node<T>*> getRandomNeighbors(const Node<T>& node, int k);

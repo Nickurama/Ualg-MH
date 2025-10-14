@@ -8,6 +8,12 @@ std::vector<Node<T>*> NeighborGenerator<T>::getAllNeighbors(const Node<T>&)
 }
 
 template<Hashable T>
+std::vector<Node<T>*> getHammingNeighbors(const Node<T>&, uint32_t)
+{
+	throw std::runtime_error("function not implemented.");
+}
+
+template<Hashable T>
 std::vector<Node<T>*> NeighborGenerator<T>::getRandomNeighbors(const Node<T>&, int)
 {
 	throw std::runtime_error("function not implemented.");
