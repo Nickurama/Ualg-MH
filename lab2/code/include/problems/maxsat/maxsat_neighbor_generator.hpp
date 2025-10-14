@@ -19,6 +19,6 @@ namespace Problems
 		MaxsatNeighborGenerator();
 
 		Node<BitArray>* getNextNeighbor(Node<BitArray>& node) override;
-		std::vector<Node<BitArray>*> getHammingNeighbors(const Node<BitArray>& node, uint32_t distance) override;
+		void getHammingNeighbors(const Node<BitArray>& node, uint32_t distance, std::vector<Node<BitArray>*>& neighbors) override;
 	};
 }

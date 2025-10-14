@@ -7,8 +7,10 @@ namespace Algorithms
 	class NAHillclimb: public Metaheuristic::Algorithm<T>
 	{
 	private:
+		uint32_t m_hamming_distance;
+		bool m_should_terminate;
 	public:
-		NAHillclimb() = default;
+		NAHillclimb(uint32_t hamming_distance);
 		~NAHillclimb() = default;
 
 		void evaluate(const std::vector<Node<T>*>& nodes) override;

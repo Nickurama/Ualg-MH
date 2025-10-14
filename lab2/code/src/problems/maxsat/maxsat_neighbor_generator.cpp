@@ -1,5 +1,6 @@
 #include "problems/maxsat/maxsat_neighbor_generator.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
+#include <iostream>
 
 using namespace Problems;
 
@@ -18,15 +19,13 @@ Node<BitArray>* MaxsatNeighborGenerator::getNextNeighbor(Node<BitArray>& node)
 	// return &node.createChild<MaxsatNode>(std::move(next_arr));
 }
 
-std::vector<Node<BitArray>*> MaxsatNeighborGenerator::getHammingNeighbors(const Node<BitArray>& node, uint32_t distance)
+void MaxsatNeighborGenerator::getHammingNeighbors(const Node<BitArray>& node, uint32_t distance, std::vector<Node<BitArray>*>& neighbors)
 {
 	// iterate through all distance-wise permutations
-	std::vector<Node<BitArray>*> neighbors;
 	size_t bits = node.value().size();
 	neighbors.reserve(bits); // WARNING should be bits^distance no?
 	BitArray init_curr = node.value();
 	getHammingNeighbors(init_curr, distance, neighbors, 0, node);
-	return neighbors;
 }
 
 void MaxsatNeighborGenerator::getHammingNeighbors(BitArray& curr, uint32_t distance, std::vector<Node<BitArray>*>& neighbors, size_t start, const Node<BitArray>& root)
@@ -39,7 +38,8 @@ void MaxsatNeighborGenerator::getHammingNeighbors(BitArray& curr, uint32_t dista
 		{
 			BitArray n = curr; // copies
 			n.flip(i);
-			neighbors.emplace_back(&root.createChild<MaxsatNode>(std::move(n)));
+			Node<BitArray>* node = &root.createChild<MaxsatNode>(std::move(n));
+			neighbors.emplace_back(node);
 		}
 		return;
 	}

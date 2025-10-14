@@ -23,3 +23,7 @@ uint64_t CnfExpression::evaluateNum(const BitArray& arr) const
 		if (clause.evaluate(arr)) counter++;
 	return counter;
 }
+size_t CnfExpression::size() const
+{
+	return m_clauses.size();
+}

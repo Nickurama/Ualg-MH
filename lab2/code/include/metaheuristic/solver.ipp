@@ -29,11 +29,16 @@ std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::so
 	{
 		// generate neighbors
 		neighbors.clear();
+		std::cout << m_nodes.size() << "n\n";
 		m_algorithm.getNeighbors(m_nodes, m_neighborGenerator, neighbors);
+		std::cout << m_nodes.size() << "n\n";
 		// pick nodes to be used
 		m_algorithm.chooseNodes(m_nodes, neighbors);
+		std::cout << m_nodes.size() << "n\n";
 		// give nodes to execute inner logic and to see if a solution has been found solutions
 		m_problem.evaluate(m_nodes);
+		std::cout << m_problem.shouldTerminate(m_nodes) << '\n';
+		std::cout << m_algorithm.shouldTerminate(m_nodes) << '\n';
 	}
 
 	return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_problem.getCurrentSolution());

@@ -12,7 +12,6 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_expression(std::move(expression)),
 	m_root_nodes(genRootNodes()),
 	m_neighbor_generator(),
-	m_solutions(),
 	m_iterations(0),
 	m_should_stop(false)
 {
@@ -54,10 +53,10 @@ void MaxsatProblem::evaluate(const std::vector<Node<BitArray>*>& nodes)
 
 void MaxsatProblem::evaluate(const Node<BitArray>* node)
 {
-	// WARNING: NOT MAXSAT, IT ACTUALLY ONLY LISTS THE NUMBER OF SOLUTIONS.
-	if (m_expression.evaluate(node->value()))
+	if (m_expression.evaluateNum(node->value()) == m_expression.size())
 	{
-		m_solutions.emplace_back(node->value());
+		m_solution = node->value();
+		m_should_stop = true;
 	}
 }
 
@@ -87,12 +86,12 @@ bool MaxsatProblem::hasSolution() const
 	return shouldTerminate();
 }
 
-std::unique_ptr<const Solution<std::vector<BitArray>>> MaxsatProblem::getSolution()
+std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getSolution()
 {
-	return std::make_unique<MaxsatSolution>(m_solutions);
+	return std::make_unique<MaxsatSolution>(m_solution, const_cast<MaxsatProblem&>(*this));
 }
 
-std::unique_ptr<const Solution<std::vector<BitArray>>> MaxsatProblem::getCurrentSolution()
+std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getCurrentSolution()
 {
 	return getSolution();
 }

@@ -19,7 +19,7 @@ namespace Metaheuristic
 	class Node
 	{
 	private:
-		Node<T> *m_parent; // non-owning
+		mutable const Node<T> *m_parent; // non-owning
 		T m_value;
 		mutable std::vector<std::unique_ptr<Node<T>>> m_children;
 

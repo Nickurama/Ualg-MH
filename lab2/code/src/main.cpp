@@ -2,6 +2,7 @@
 #include <memory>
 #include <chrono>
 
+#include "algorithms/next_ascent_hillclimb.hpp"
 #include "metaheuristic/algorithm.hpp"
 #include "metaheuristic/problem.hpp"
 #include "metaheuristic/solution.hpp"
@@ -33,12 +34,16 @@ int main(int argc, char *argv[])
 
 	CnfReader cnfReader(input_filename);
 	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
-	NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
-	Solver<BitArray, std::vector<BitArray>> solver(*problem, algorithm);
+	// NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
+	int hamming_distance = 1;
+	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(hamming_distance);
+	Solver<BitArray, BitArray> solver(*problem, algorithm);
+
+	// ERROR ADD CACHING TO FITNESS
 
 	auto start = std::chrono::high_resolution_clock::now();
 
-	std::unique_ptr<const Solution<std::vector<BitArray>>> solution = solver.solve();
+	std::unique_ptr<const Solution<BitArray>> solution = solver.solve();
 
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = duration_cast<std::chrono::milliseconds>(end - start);

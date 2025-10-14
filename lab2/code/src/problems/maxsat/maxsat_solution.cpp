@@ -5,19 +5,21 @@
 
 using namespace Problems;
 
-MaxsatSolution::MaxsatSolution(std::vector<BitArray> value) :
-	Solution<std::vector<BitArray>>(value)
+// MaxsatSolution::MaxsatSolution(std::vector<BitArray> value) :
+MaxsatSolution::MaxsatSolution(const BitArray& value, const MaxsatProblem& problem) :
+	Solution<BitArray>(value),
+	m_problem(problem)
+
 {
 }
 
 std::string MaxsatSolution::output() const
 {
-	const std::vector<BitArray>& solutions = value();
 	std::ostringstream os;
-	os << "satisfiable solutions: " << std::to_string(solutions.size()) << '\n';
-	for (BitArray b : solutions)
-	{
-		os << b << '\n';
-	}
+
+	const BitArray& solution = value();
+	os << "solution found:\n";
+	os << solution << '\n';
+
 	return os.str();
 }

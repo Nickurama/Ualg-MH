@@ -3,9 +3,11 @@
 
 using namespace Problems;
 
+const MaxsatProblem* MaxsatNode::maxsat_problem = nullptr;
+
 double MaxsatNode::fitness() const
 {
-	return maxsat_problem->evaluate(value());
+	return MaxsatNode::maxsat_problem->evaluate(value());
 }
 
 void MaxsatNode::setProblem(const MaxsatProblem& problem)
