@@ -1,5 +1,6 @@
 #pragma once
 #include "algorithms/next_ascent_hillclimb.hpp"
+#include <iostream>
 
 using namespace Algorithms;
 
@@ -34,15 +35,15 @@ template<typename T>
 void NAHillclimb<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors)
 {
 	Node<T>* curr = nodes[0];
-	nodes.clear();
 
 	double curr_fitness = curr->fitness();
 	for (Node<T>* neighbor : neighbors)
 	{
 		if (neighbor->fitness() > curr_fitness)
 		{
-			nodes[0] = neighbor;
-			break;
+			nodes.clear();
+			nodes.emplace_back(neighbor);
+			return;
 		}
 	}
 

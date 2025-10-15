@@ -1,10 +1,10 @@
 PROJECT = maxsat
 CPPC = g++
 
-# CFLAGS = -std=c++20 -xc++ -Ofast -march=native -flto -funroll-loops -fomit-frame-pointer -DNDEBUG
+CFLAGS = -std=c++20 -xc++ -Ofast -march=native -flto -funroll-loops -fomit-frame-pointer -DNDEBUG
 # CFLAGS = -std=c++20 -xc++ -O2 -DNDEBUG
 # CFLAGS = -std=c++20 -g -xc++ -O2 -DNDEBUG
-CFLAGS = -std=c++20 -xc++ -DNDEBUG
+# CFLAGS = -std=c++20 -xc++ -DNDEBUG
 
 LDFLAGS = -Wall -Wextra -Wpedantic
 # SRCFILES = $(wildcard src/*.cpp) $(wildcard src/*.tpp) $(wildcard src/*.ipp)

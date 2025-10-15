@@ -19,6 +19,10 @@ namespace Problems
 		uint64_t m_iterations;
 		bool m_should_stop;
 
+		BitArray m_rolling_solution;
+		uint64_t m_rolling_fitness;
+
+
 		std::vector<std::unique_ptr<Node<BitArray>>> genRootNodes() const;
 		bool shouldTerminate() const;
 		constexpr uint64_t getMaxIterations(uint32_t k) const;
@@ -32,6 +36,7 @@ namespace Problems
 		NeighborGenerator<BitArray>& getNeighborGenerator() override;
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
 		uint64_t evaluate(const BitArray& bits) const;
+		uint64_t maxFitness() const;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
 		std::unique_ptr<const Solution<BitArray>> getSolution() override;

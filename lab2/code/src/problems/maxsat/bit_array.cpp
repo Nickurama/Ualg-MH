@@ -1,6 +1,7 @@
 #include "problems/maxsat/bit_array.hpp"
 #include <cassert>
 #include <cstring>
+#include <iostream>
 #include <sstream>
 
 using namespace Problems;

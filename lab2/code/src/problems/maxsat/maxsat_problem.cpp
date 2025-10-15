@@ -13,7 +13,9 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_root_nodes(genRootNodes()),
 	m_neighbor_generator(),
 	m_iterations(0),
-	m_should_stop(false)
+	m_should_stop(false),
+	m_rolling_solution(m_root_nodes[0]->value()),
+	m_rolling_fitness(evaluate(m_rolling_solution))
 {
 	MaxsatNode::setProblem(const_cast<MaxsatProblem&>(*this));
 }
@@ -53,10 +55,16 @@ void MaxsatProblem::evaluate(const std::vector<Node<BitArray>*>& nodes)
 
 void MaxsatProblem::evaluate(const Node<BitArray>* node)
 {
-	if (m_expression.evaluateNum(node->value()) == m_expression.size())
+	uint64_t evals = m_expression.evaluateNum(node->value());
+	if (evals == m_expression.size())
 	{
 		m_solution = node->value();
 		m_should_stop = true;
+	}
+	else if (evals > m_rolling_fitness)
+	{
+		m_rolling_solution = node->value();
+		m_rolling_fitness = evaluate(m_rolling_solution);
 	}
 }
 
@@ -68,6 +76,11 @@ uint64_t MaxsatProblem::evaluate(const BitArray& bits) const
 constexpr uint64_t MaxsatProblem::getMaxIterations(uint32_t k) const
 {
 	return k > 63 ? ~0ul : 1ul << k;
+}
+
+uint64_t MaxsatProblem::maxFitness() const
+{
+	return m_expression.size();
 }
 
 // no matter what algorithm is being used, if it goes over this, the problem deems that it should be stopped
@@ -93,5 +106,5 @@ std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getSolution()
 
 std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getCurrentSolution()
 {
-	return getSolution();
+	return std::make_unique<MaxsatSolution>(m_rolling_solution, const_cast<MaxsatProblem&>(*this));
 }
