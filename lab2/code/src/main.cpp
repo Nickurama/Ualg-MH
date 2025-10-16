@@ -16,9 +16,6 @@
 #include "problems/maxsat/maxsat_problem.hpp"
 #include "problems/maxsat/maxsat_solution.hpp"
 
-#define HAMMING_DISTANCE 1
-#define MULTISTART 0
-
 using namespace Problems;
 using namespace Metaheuristic;
 using namespace Algorithms;
@@ -27,22 +24,47 @@ using namespace Algorithms;
 
 int main(int argc, char *argv[])
 {
+	// input handling
 	int argnum = argc - 1;
 	if (argnum < 1)
 	{
-		std::cout << "Usage: maxsat <input_file>" << std::endl;
+		std::cout << "Usage: maxsat <input_file> <hamming_distance> <multistart>" << std::endl;
 	}
 	std::string input_filename = argv[1];
-	// std::string algorithm_name = argv[2];
-	// std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
+	uint32_t hamming_distance = 1;
+	uint32_t multistart = 0;
+	try
+	{
+		if (argnum >= 2)
+			hamming_distance = std::stoi(argv[2]);
+	}
+	catch (std::exception&)
+	{
+		std::cout << "Usage: maxsat <input_file> <hamming_distance> <multistart>" << std::endl;
+		std::cout << "hamming_distance should be an integer\n";
+		std::exit(1);
+	}
+	try
+	{
+		if (argnum >= 3)
+			multistart = std::stol(argv[3]);
+	}
+	catch (std::exception&)
+	{
+		std::cout << "Usage: maxsat <input_file> <hamming_distance> <multistart>" << std::endl;
+		std::cout << "multistart should be a long\n";
+		std::exit(1);
+	}
 
+
+	// solver
 	CnfReader cnfReader(input_filename);
 	RandomNumberGenerator::setRandomSeed();
 
 	std::cout << "seed: " << RandomNumberGenerator::seed() << "\n";
 	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
 	// NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
-	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(HAMMING_DISTANCE, MULTISTART);
+	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(hamming_distance, multistart);
 	Solver<BitArray, BitArray> solver(*problem, algorithm);
 
 	auto start = std::chrono::high_resolution_clock::now();
@@ -53,6 +75,9 @@ int main(int argc, char *argv[])
 	auto duration = duration_cast<std::chrono::milliseconds>(end - start);
 
 	std::cout << solution->output() << "\n";
+	std::cout << "restarts: " << algorithm.restarts() << "\n";
+	std::cout << "iterations: " << solver.iterations() << "\n";
+	std::cout << "evaluations: " << algorithm.evaluations() << "\n";
 	std::cout << "elapsed: " << duration.count() << "ms\n";
 	// IO::FileIO::write(solution->output(), output_filename);
 }

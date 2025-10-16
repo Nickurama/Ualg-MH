@@ -16,6 +16,7 @@ namespace Metaheuristic
 		Algorithm<NodeType>& m_algorithm;
 		NeighborGenerator<NodeType>& m_neighborGenerator;
 		std::vector<Node<NodeType>*> m_nodes;
+		uint64_t m_iterations;
 
 	public:
 		Solver(Problem<NodeType, SolutionType>& problem, Algorithm<NodeType>& algorithm);
@@ -26,6 +27,7 @@ namespace Metaheuristic
 		Solver& operator=(const Solver&&) = delete;
 
 		std::unique_ptr<const Solution<SolutionType>> solve();
+		uint64_t iterations() const;
 	};
 }
 

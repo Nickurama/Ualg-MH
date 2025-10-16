@@ -10,7 +10,8 @@ Solver<NodeType, SolutionType>::Solver(Problem<NodeType, SolutionType>& problem,
 	m_problem(problem),
 	m_algorithm(algorithm),
 	m_neighborGenerator(problem.getNeighborGenerator()),
-	m_nodes()
+	m_nodes(),
+	m_iterations(0)
 {
 	const std::vector<std::unique_ptr<Node<NodeType>>>& root_nodes = problem.getRootNodes();
 	for (size_t i = 0; i < root_nodes.size(); i++)
@@ -34,9 +35,17 @@ std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::so
 		m_algorithm.chooseNodes(m_nodes, neighbors);
 		// give nodes to execute inner logic and to see if a solution has been found solutions
 		m_problem.evaluate(m_nodes);
+		m_algorithm.evaluate(m_nodes);
+
+		m_iterations++;
 	}
 
 	return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_problem.getCurrentSolution());
 	// return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_algorithm.getCurrentSolution());
 }
 
+template<typename NodeType, typename SolutionType>
+uint64_t Solver<NodeType, SolutionType>::iterations() const
+{
+	return m_iterations;
+}

@@ -12,7 +12,9 @@ NAHillclimb<T>::NAHillclimb(uint32_t hamming_distance, uint32_t multistarts) :
 	m_should_terminate(false),
 	m_multistarts(multistarts),
 	m_restart(true),
-	m_initial_nodes()
+	m_initial_nodes(),
+	m_restarts(-1),
+	m_evaluations(0)
 {
 }
 
@@ -41,6 +43,7 @@ void NAHillclimb<T>::getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGe
 
 	if (m_restart)
 	{
+		m_restarts++;
 		m_initial_nodes.emplace_back(gen.getRandomNode());
 		neighbors.emplace_back(m_initial_nodes[m_initial_nodes.size() - 1].get());
 		return;
@@ -66,6 +69,7 @@ void NAHillclimb<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector
 	double curr_fitness = curr->fitness();
 	for (Node<T>* neighbor : neighbors)
 	{
+		m_evaluations++;
 		if (neighbor->fitness() > curr_fitness)
 		{
 			nodes.clear();
@@ -75,4 +79,16 @@ void NAHillclimb<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector
 	}
 
 	m_should_terminate = true;
+}
+
+template<typename T>
+uint64_t NAHillclimb<T>::restarts() const
+{
+	return m_restarts;
+}
+
+template<typename T>
+uint64_t NAHillclimb<T>::evaluations() const
+{
+	return m_evaluations;
 }
