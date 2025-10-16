@@ -11,8 +11,10 @@ namespace Problems
 	{
 	private:
 		static const MaxsatProblem* maxsat_problem;
+		mutable double m_fitness_cache;
 
 	public:
+		MaxsatNode();
 		~MaxsatNode() override = default;
 
 		static void setProblem(const MaxsatProblem& problem);

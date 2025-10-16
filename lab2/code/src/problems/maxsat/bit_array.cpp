@@ -40,6 +40,21 @@ BitArray::BitArray(const BitArray& other) :
 	copyMemberArray(*this, other);
 }
 
+BitArray::BitArray(size_t size, const std::vector<uint64_t>& initializers) :
+	BitArray(size)
+{
+	set(initializers);
+}
+
+void BitArray::set(const std::vector<uint64_t>& initializers)
+{
+	assert(initializers.size() == m_true_size);
+	for (size_t i = 0; i < initializers.size(); i++)
+	{
+		m_arr[i] = initializers[i];
+	}
+}
+
 BitArray& BitArray::operator=(const BitArray& other)
 {
 	m_true_size = other.m_true_size;

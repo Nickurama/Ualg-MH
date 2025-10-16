@@ -27,7 +27,7 @@ namespace Metaheuristic
 		// randomness
 		virtual std::vector<Node<T>*> getRandomNeighbors(const Node<T>& node, int k);
 		virtual Node<T>* getRandomNeighbor(const Node<T>& node);
-		virtual Node<T>* getRandomNode();
+		virtual std::unique_ptr<Node<T>> getRandomNode();
 
 		// iterative
 		virtual bool hasNextNeighbor(Node<T>);

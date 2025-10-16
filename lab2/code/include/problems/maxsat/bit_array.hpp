@@ -24,6 +24,8 @@ namespace Problems
 		BitArray(size_t size);
 		BitArray(const BitArray& other);
 		BitArray(BitArray&& other) = default;
+		BitArray(size_t size, const std::vector<uint64_t>& initializers);
+
 		~BitArray() = default;
 		BitArray& operator=(const BitArray& other);
 		BitArray& operator=(BitArray&& other);
@@ -31,6 +33,7 @@ namespace Problems
 
 		bool get(size_t k) const;
 		void set(size_t k, bool val);
+		void set(const std::vector<uint64_t>& initializers);
 		void flip(size_t k);
 		void increment();
 

@@ -26,7 +26,7 @@ Node<T>* NeighborGenerator<T>::getRandomNeighbor(const Node<T>&)
 }
 
 template<Hashable T>
-Node<T>* NeighborGenerator<T>::getRandomNode()
+std::unique_ptr<Node<T>> NeighborGenerator<T>::getRandomNode()
 {
 	throw std::runtime_error("function not implemented.");
 }

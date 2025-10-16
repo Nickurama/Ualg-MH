@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # ./compile.sh
-./build/maxsat ../sample_inputs/uf20-01.cnf
+./build/maxsat ../sample_inputs/uf250-01.cnf

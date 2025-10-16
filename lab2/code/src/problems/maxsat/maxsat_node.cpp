@@ -5,9 +5,19 @@ using namespace Problems;
 
 const MaxsatProblem* MaxsatNode::maxsat_problem = nullptr;
 
+MaxsatNode::MaxsatNode() :
+	m_fitness_cache(0.0)
+{
+
+}
+
 double MaxsatNode::fitness() const
 {
-	return MaxsatNode::maxsat_problem->evaluate(value());
+	if (m_fitness_cache == 0.0)
+	{
+		m_fitness_cache = MaxsatNode::maxsat_problem->evaluate(value());
+	}
+	return m_fitness_cache;
 }
 
 void MaxsatNode::setProblem(const MaxsatProblem& problem)

@@ -9,8 +9,11 @@ namespace Algorithms
 	private:
 		uint32_t m_hamming_distance;
 		bool m_should_terminate;
+		uint32_t m_multistarts;
+		bool m_restart;
+		std::vector<std::unique_ptr<Node<T>>> m_initial_nodes;
 	public:
-		NAHillclimb(uint32_t hamming_distance);
+		NAHillclimb(uint32_t hamming_distance, uint32_t multistarts);
 		~NAHillclimb() = default;
 
 		void evaluate(const std::vector<Node<T>*>& nodes) override;

@@ -10,15 +10,20 @@ using namespace Metaheuristic;
 
 namespace Problems
 {
+	class MaxsatProblem; // forward declaration
+
 	class MaxsatNeighborGenerator : public NeighborGenerator<BitArray>
 	{
 	private:
+		MaxsatProblem& m_problem;
+
 		void getHammingNeighbors(BitArray& curr, uint32_t distance, std::vector<Node<BitArray>*>& neighbors, size_t start, const Node<BitArray>& root);
 
 	public:
-		MaxsatNeighborGenerator();
+		MaxsatNeighborGenerator(MaxsatProblem& p);
 
 		Node<BitArray>* getNextNeighbor(Node<BitArray>& node) override;
 		void getHammingNeighbors(const Node<BitArray>& node, uint32_t distance, std::vector<Node<BitArray>*>& neighbors) override;
+		std::unique_ptr<Node<BitArray>> getRandomNode() override;
 	};
 }

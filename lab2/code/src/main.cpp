@@ -5,6 +5,7 @@
 #include "algorithms/next_ascent_hillclimb.hpp"
 #include "metaheuristic/algorithm.hpp"
 #include "metaheuristic/problem.hpp"
+#include "metaheuristic/rng.hpp"
 #include "metaheuristic/solution.hpp"
 #include "metaheuristic/solver.hpp"
 #include "metaheuristic/node.hpp"
@@ -14,6 +15,9 @@
 #include "problems/maxsat/maxsat_node.hpp"
 #include "problems/maxsat/maxsat_problem.hpp"
 #include "problems/maxsat/maxsat_solution.hpp"
+
+#define HAMMING_DISTANCE 1
+#define MULTISTART 0
 
 using namespace Problems;
 using namespace Metaheuristic;
@@ -33,13 +37,13 @@ int main(int argc, char *argv[])
 	// std::string output_filename = argnum >= 3 ? argv[3] : DEFAULT_OUTPUT_FILE_NAME;
 
 	CnfReader cnfReader(input_filename);
+	RandomNumberGenerator::setRandomSeed();
+
+	std::cout << "seed: " << RandomNumberGenerator::seed() << "\n";
 	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
 	// NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
-	int hamming_distance = 1;
-	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(hamming_distance);
+	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(HAMMING_DISTANCE, MULTISTART);
 	Solver<BitArray, BitArray> solver(*problem, algorithm);
-
-	// ERROR ADD CACHING TO FITNESS
 
 	auto start = std::chrono::high_resolution_clock::now();
 

@@ -11,7 +11,7 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_max_iter(getMaxIterations(m_size)),
 	m_expression(std::move(expression)),
 	m_root_nodes(genRootNodes()),
-	m_neighbor_generator(),
+	m_neighbor_generator(*this),
 	m_iterations(0),
 	m_should_stop(false),
 	m_rolling_solution(m_root_nodes[0]->value()),
@@ -81,6 +81,11 @@ constexpr uint64_t MaxsatProblem::getMaxIterations(uint32_t k) const
 uint64_t MaxsatProblem::maxFitness() const
 {
 	return m_expression.size();
+}
+
+size_t MaxsatProblem::size() const
+{
+	return m_size;
 }
 
 // no matter what algorithm is being used, if it goes over this, the problem deems that it should be stopped

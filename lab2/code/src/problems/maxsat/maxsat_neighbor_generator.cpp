@@ -1,12 +1,13 @@
 #include "problems/maxsat/maxsat_neighbor_generator.hpp"
+#include "metaheuristic/rng.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
 #include <iostream>
 
 using namespace Problems;
 
-MaxsatNeighborGenerator::MaxsatNeighborGenerator()
+MaxsatNeighborGenerator::MaxsatNeighborGenerator(MaxsatProblem& p) :
+	m_problem(p)
 {
-
 }
 
 Node<BitArray>* MaxsatNeighborGenerator::getNextNeighbor(Node<BitArray>& node)
@@ -52,70 +53,14 @@ void MaxsatNeighborGenerator::getHammingNeighbors(BitArray& curr, uint32_t dista
 	}
 }
 
-// size: 5, hamming distance: 3
-// initial: 0 0 0 0 0
+std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNode()
+{
+	std::vector<uint64_t> init;
+	init.reserve(m_problem.size() / 64);
+	for (size_t i = 0; i < m_problem.size(); i += 64)
+	{
+		init.emplace_back(RandomNumberGenerator::getULong());
+	}
 
-// 1 0 0 0 0 - start 1 ----
-// 1 1 0 0 0 - start 2
-// 1 1 1 0 0
-// 1 1 0 1 0
-// 1 1 0 0 1
-
-// 1 0 1 0 0 - start 3
-// 1 0 1 0 0
-// 1 0 0 1 0
-// 1 0 0 0 1
-
-// 1 0 0 1 0 - start 4
-// 1 0 0 1 1
-
-// 1 0 0 0 1 - start 5
-// 0 1 0 0 0 - start 2 ----
-// 0 1 1 0 0 - start 3
-// 0 1 1 1 0
-// 0 1 1 0 1
-
-// ...
-
-// 0 0 0 1 0 - start 4 ----
-// 0 0 0 1 1 - start 5
-// error
-// 0 0 1 0 0 - start 4 ----
-// ...
-// 0 0 0 0 1 - start 5
-// error
-
-
-// std::vector<std::unique_ptr<Node<BitArray>>> MaxsatNeighborGenerator::getAllNeighbors(const Node<BitArray>& node)
-// {
-// 	// TODO
-// }
-//
-// std::vector<std::unique_ptr<Node<BitArray>>> MaxsatNeighborGenerator::getRandomNeighbors(const Node<BitArray>& node, int k)
-// {
-// 	// TODO
-// }
-//
-// std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNeighbor(const Node<BitArray>& node)
-// {
-// 	// TODO
-// }
-//
-// std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNode()
-// {
-// 	// TODO
-// }
-//
-// bool MaxsatNeighborGenerator::hasNextNeighbor(Node<BitArray>)
-// {
-// 	// TODO
-// }
-// std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::mutate(const Node<BitArray>& node, double rate)
-// {
-// 	// TODO
-// }
-//
-// std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::crossover(const Node<BitArray>& first, const Node<BitArray>& second)
-// {
-// 	// TODO
-// }
+	return MaxsatNode::createRoot<MaxsatNode>(BitArray(m_problem.size(), init));
+}

@@ -37,6 +37,7 @@ namespace Problems
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
 		uint64_t evaluate(const BitArray& bits) const;
 		uint64_t maxFitness() const;
+		size_t size() const;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
 		std::unique_ptr<const Solution<BitArray>> getSolution() override;
