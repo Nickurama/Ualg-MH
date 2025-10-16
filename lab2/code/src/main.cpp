@@ -74,10 +74,11 @@ int main(int argc, char *argv[])
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = duration_cast<std::chrono::milliseconds>(end - start);
 
-	std::cout << solution->output() << "\n";
+	std::cout << solution->output();
 	std::cout << "restarts: " << algorithm.restarts() << "\n";
 	std::cout << "iterations: " << solver.iterations() << "\n";
 	std::cout << "evaluations: " << algorithm.evaluations() << "\n";
+	std::cout << "optimal: " << (problem->hasSolution() ? "yes" : "no") << "\n";
 	std::cout << "elapsed: " << duration.count() << "ms\n";
 	// IO::FileIO::write(solution->output(), output_filename);
 }

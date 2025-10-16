@@ -18,7 +18,7 @@ std::string MaxsatSolution::output() const
 	std::ostringstream os;
 	const BitArray& solution = value();
 
-	os << "solution:\n";
+	os << "solution: ";
 	os << solution << '\n';
 	os << "fitness: (" << m_problem.evaluate(solution) << "/" << m_problem.maxFitness() << ")\n";
 
