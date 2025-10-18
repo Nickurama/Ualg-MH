@@ -11,6 +11,7 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_max_iter(getMaxIterations(m_size)),
 	m_expression(std::move(expression)),
 	m_root_nodes(genRootNodes()),
+	m_variable_clause_relation(m_expression.size()),
 	m_neighbor_generator(*this),
 	m_iterations(0),
 	m_should_stop(false),
@@ -18,6 +19,17 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_rolling_fitness(evaluate(m_rolling_solution))
 {
 	MaxsatNode::setProblem(const_cast<MaxsatProblem&>(*this));
+
+	for (size_t clause = 0; clause < m_expression.size(); clause++)
+	{
+
+		std::vector<int32_t> clause_variables = m_expression.getRelatedVariablesToClause(clause);
+		for (int32_t clause_variable : clause_variables)
+		{
+			uint32_t variable = std::abs(clause_variable);
+			m_variable_clause_relation[variable].emplace_back(clause);
+		}
+	}
 }
 
 std::vector<std::unique_ptr<Node<BitArray>>> MaxsatProblem::genRootNodes() const
@@ -71,6 +83,33 @@ void MaxsatProblem::evaluate(const Node<BitArray>* node)
 uint64_t MaxsatProblem::evaluate(const BitArray& bits) const
 {
 	return m_expression.evaluateNum(bits);
+}
+
+uint64_t MaxsatProblem::evaluate(const BitArray& bits, BitArray& satisfiableClauses) const
+{
+	return m_expression.evaluateNum(bits, satisfiableClauses);
+}
+
+uint64_t MaxsatProblem::evaluateSpecific(const BitArray& bits, const std::vector<size_t>& variableIndices) const
+{
+	uint64_t counter = 0;
+	BitArray trueEvaluatingClauses(m_expression.size());
+
+	for (size_t variable : variableIndices)
+	{
+		const std::vector<uint32_t>& clauses = m_variable_clause_relation[variable];
+
+		for (uint32_t clause : clauses)
+		{
+			if (!trueEvaluatingClauses[clause] && m_expression.evaluateClauseAt(bits, clause))
+			{
+				trueEvaluatingClauses.set(clause, 1);
+				counter++;
+			}
+		}
+	}
+
+	return counter;
 }
 
 constexpr uint64_t MaxsatProblem::getMaxIterations(uint32_t k) const

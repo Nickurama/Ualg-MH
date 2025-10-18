@@ -28,7 +28,35 @@ uint64_t CnfExpression::evaluateNum(const BitArray& arr) const
 		if (clause.evaluate(arr)) counter++;
 	return counter;
 }
+
+uint64_t CnfExpression::evaluateNum(const BitArray& arr, BitArray& satisfiableClauses) const
+{
+	size_t size = m_clauses.size();
+	satisfiableClauses.resize(size);
+	uint64_t counter = 0;
+	for (size_t i = 0; i < size; i++)
+	{
+		if (m_clauses[i].evaluate(arr))
+		{
+			satisfiableClauses.set(i, 1);
+			counter++;
+		}
+	}
+	return counter;
+}
+
+// number of clauses
 size_t CnfExpression::size() const
 {
 	return m_clauses.size();
+}
+
+std::vector<int32_t> CnfExpression::getRelatedVariablesToClause(size_t k) const
+{
+	return m_clauses[k].getRelatedVariables();
+}
+
+bool CnfExpression::evaluateClauseAt(const BitArray& arr, uint32_t k) const
+{
+	return m_clauses[k].evaluate(arr);
 }

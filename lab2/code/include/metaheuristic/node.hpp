@@ -41,8 +41,9 @@ namespace Metaheuristic
 
 	public:
 		virtual ~Node();
-		Node<T> *parent() const;
+		const Node<T> *parent() const;
 		const T& value() const;
+		bool isRoot() const;
 		bool operator!=(const Node<T> &other) const;
 
 		// virtual functions, meant to be overriden

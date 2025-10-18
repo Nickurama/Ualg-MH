@@ -36,6 +36,9 @@ namespace Problems
 		void set(const std::vector<uint64_t>& initializers);
 		void flip(size_t k);
 		void increment();
+		void resize(size_t k);
+		std::vector<size_t> getSetIndices() const;
+		std::vector<size_t> getDifferences(const BitArray& other) const;
 
 		size_t hash() const;
 		size_t size() const;
@@ -43,6 +46,7 @@ namespace Problems
 
 		bool operator[](size_t index) const;
 		bool operator==(const BitArray& other) const;
+		BitArray operator^(const BitArray& other) const;
 		// std::ostream& operator<<(std::ostream& os);
 		// friend std::ostream& operator<<(std::ostream& os, const BitArray& obj);
 	};

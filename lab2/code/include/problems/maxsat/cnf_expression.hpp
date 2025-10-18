@@ -25,6 +25,10 @@ namespace Problems
 
 		bool evaluate(const BitArray& arr) const;
 		uint64_t evaluateNum(const BitArray& arr) const;
+		uint64_t evaluateNum(const BitArray& arr, BitArray& satisfiableClauses) const;
 		size_t size() const;
+
+		std::vector<int32_t> getRelatedVariablesToClause(size_t k) const;
+		bool evaluateClauseAt(const BitArray& arr, uint32_t k) const;
 	};
 }

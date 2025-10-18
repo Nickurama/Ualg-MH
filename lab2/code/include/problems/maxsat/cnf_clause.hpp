@@ -23,5 +23,6 @@ namespace Problems
 		CnfClause& operator=(CnfClause&& other) = default;
 
 		bool evaluate(const BitArray& arr) const;
+		std::vector<int32_t> getRelatedVariables() const;
 	};
 }

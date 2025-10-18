@@ -14,6 +14,7 @@ namespace Problems
 		const uint64_t m_max_iter;
 		const CnfExpression m_expression;
 		const std::vector<std::unique_ptr<Node<BitArray>>> m_root_nodes;
+		std::vector<std::vector<uint32_t>> m_variable_clause_relation;
 		MaxsatNeighborGenerator m_neighbor_generator;
 		BitArray m_solution;
 		uint64_t m_iterations;
@@ -36,6 +37,8 @@ namespace Problems
 		NeighborGenerator<BitArray>& getNeighborGenerator() override;
 		void evaluate(const std::vector<Node<BitArray>*>& nodes) override;
 		uint64_t evaluate(const BitArray& bits) const;
+		uint64_t evaluate(const BitArray& bits, BitArray& satisfiableClauses) const;
+		uint64_t evaluateSpecific(const BitArray& bits, const std::vector<size_t>& variableIndices) const;
 		uint64_t maxFitness() const;
 		size_t size() const;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;

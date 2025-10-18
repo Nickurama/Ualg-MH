@@ -32,3 +32,8 @@ bool CnfClause::evaluate(const BitArray& arr) const
 	}
 	return false;
 }
+
+std::vector<int32_t> CnfClause::getRelatedVariables() const
+{
+	return m_cnf;
+}

@@ -122,6 +122,57 @@ void BitArray::increment()
 		if (m_arr[i]++ != ~0ul) break;
 }
 
+void BitArray::resize(size_t k)
+{
+	std::unique_ptr<uint64_t[]> arr_cache(std::move(m_arr));
+	size_t true_size_cache = m_true_size;
+
+	m_true_size = (k + (sizeof(uint64_t) * 8) - 1) / (sizeof(unsigned long) * 8);
+	m_size_bits = k;
+	m_arr = std::make_unique_for_overwrite<uint64_t[]>(m_true_size);
+	clearMemberArray();
+
+	for (size_t i = 0; i < std::min(true_size_cache, m_true_size); i++)
+	{
+		m_arr[i] = arr_cache[i];
+	}
+}
+
+BitArray BitArray::operator^(const BitArray& other) const
+{
+	BitArray diffs(m_size_bits);
+	size_t min_size = std::min(m_true_size, other.m_true_size);
+
+	for (size_t i = 0; i < min_size; i++)
+	{
+		diffs.m_arr[i] = m_arr[i] ^ other.m_arr[i];
+	}
+
+	return diffs;
+}
+
+std::vector<size_t> BitArray::getSetIndices() const
+{
+	std::vector<size_t> diffs_index;
+
+	for (size_t i = 0; i < m_true_size; i++)
+	{
+		uint64_t curr = m_arr[i];
+		while (curr)
+		{
+			diffs_index.emplace_back(__builtin_ctzll(curr));
+			curr &= curr - 1;
+		}
+	}
+
+	return diffs_index;
+}
+
+std::vector<size_t> BitArray::getDifferences(const BitArray& other) const
+{
+	return (*this ^ other).getSetIndices();
+}
+
 size_t BitArray::size() const
 {
 	return m_size_bits;

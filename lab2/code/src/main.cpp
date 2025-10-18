@@ -92,4 +92,10 @@ int main(int argc, char *argv[])
 	// * I know which clauses have what variables
 	// 1 - variables that changed (in comparison to? parent!) -> what clauses are affected?
 	// 2 - variables that didn't change -> does not matter?
+
+	// step 0: parent should keep track of which clauses evaluated to true
+	// step 1: detect what changes from parent/child
+	// step 2: check what clauses are affected
+	// step 3: recompute clauses
+	// step 4: compute fitness of child based on clause recomputations
 }

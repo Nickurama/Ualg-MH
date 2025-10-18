@@ -12,6 +12,7 @@ namespace Problems
 	private:
 		static const MaxsatProblem* maxsat_problem;
 		mutable double m_fitness_cache;
+		mutable BitArray m_satisfiable_clauses;
 
 	public:
 		MaxsatNode();

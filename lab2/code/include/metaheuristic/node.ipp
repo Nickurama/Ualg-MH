@@ -54,6 +54,12 @@ Node<T>::~Node()
 }
 
 template<Hashable T>
+bool Node<T>::isRoot() const
+{
+	return m_parent == nullptr;
+}
+
+template<Hashable T>
 template<DerivedFrom<Node<T>> NodeDerivation>
 std::unique_ptr<Node<T>> Node<T>::createRoot(T&& value)
 {
@@ -82,7 +88,7 @@ const T& Node<T>::value() const
 }
 
 template<Hashable T>
-Node<T> *Node<T>::parent() const
+const Node<T> *Node<T>::parent() const
 {
 	return m_parent;
 }
