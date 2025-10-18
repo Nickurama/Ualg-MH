@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "algorithms/next_ascent_hillclimb.hpp"
+#include "algorithms/variable_neighbourhood_ascent_hillclimb.hpp"
 #include "metaheuristic/algorithm.hpp"
 #include "metaheuristic/problem.hpp"
 #include "metaheuristic/rng.hpp"
@@ -60,11 +61,13 @@ int main(int argc, char *argv[])
 	// solver
 	CnfReader cnfReader(input_filename);
 	RandomNumberGenerator::setRandomSeed();
+	// RandomNumberGenerator::setSeed(1974712772);
 
 	std::cout << "seed: " << RandomNumberGenerator::seed() << "\n";
 	std::unique_ptr<MaxsatProblem> problem = cnfReader.read();
 	// NaiveAlgorithm<BitArray> algorithm = NaiveAlgorithm<BitArray>();
-	NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(hamming_distance, multistart);
+	// NAHillclimb<BitArray> algorithm = NAHillclimb<BitArray>(hamming_distance, multistart);
+	VNAHillclimb<BitArray> algorithm = VNAHillclimb<BitArray>(hamming_distance, multistart);
 	Solver<BitArray, BitArray> solver(*problem, algorithm);
 
 	auto start = std::chrono::high_resolution_clock::now();
@@ -81,4 +84,12 @@ int main(int argc, char *argv[])
 	std::cout << "optimal: " << (problem->hasSolution() ? "yes" : "no") << "\n";
 	std::cout << "elapsed: " << duration.count() << "ms\n";
 	// IO::FileIO::write(solution->output(), output_filename);
+
+
+
+
+	// 2 parts:
+	// * I know which clauses have what variables
+	// 1 - variables that changed (in comparison to? parent!) -> what clauses are affected?
+	// 2 - variables that didn't change -> does not matter?
 }

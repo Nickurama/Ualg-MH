@@ -66,6 +66,7 @@ void NAHillclimb<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector
 
 	Node<T>* curr = nodes[0];
 
+	m_evaluations++;
 	double curr_fitness = curr->fitness();
 	for (Node<T>* neighbor : neighbors)
 	{

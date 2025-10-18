@@ -12,7 +12,12 @@ CnfExpression::CnfExpression(std::vector<CnfClause>&& clauses) :
 bool CnfExpression::evaluate(const BitArray& arr) const
 {
 	for (const CnfClause& clause : m_clauses)
-		if (!clause.evaluate(arr)) return false;
+	{
+		if (!clause.evaluate(arr))
+		{
+			return false;
+		}
+	}
 	return true;
 }
 

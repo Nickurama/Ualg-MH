@@ -6,7 +6,7 @@ namespace Algorithms
 	template<typename T>
 	class NAHillclimb: public Metaheuristic::Algorithm<T>
 	{
-	private:
+	protected:
 		uint32_t m_hamming_distance;
 		bool m_should_terminate;
 		uint32_t m_multistarts;
@@ -17,14 +17,14 @@ namespace Algorithms
 
 	public:
 		NAHillclimb(uint32_t hamming_distance, uint32_t multistarts);
-		~NAHillclimb() = default;
+		virtual ~NAHillclimb() = default;
 
-		void evaluate(const std::vector<Node<T>*>& nodes) override;
-		bool shouldTerminate(const std::vector<Node<T>*>& nodes) const override;
-		void getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen, std::vector<Node<T>*>& neighbors) override;
-		void chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors) override;
-		uint64_t restarts() const;
-		uint64_t evaluations() const;
+		virtual void evaluate(const std::vector<Node<T>*>& nodes) override;
+		virtual bool shouldTerminate(const std::vector<Node<T>*>& nodes) const override;
+		virtual void getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen, std::vector<Node<T>*>& neighbors) override;
+		virtual void chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors) override;
+		virtual uint64_t restarts() const;
+		virtual uint64_t evaluations() const;
 	};
 }
 
