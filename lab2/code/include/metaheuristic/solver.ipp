@@ -23,6 +23,8 @@ Solver<NodeType, SolutionType>::Solver(Problem<NodeType, SolutionType>& problem,
 template<typename NodeType, typename SolutionType>
 std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::solve()
 {
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+
 	m_problem.evaluate(m_nodes);
 	m_algorithm.evaluate(m_nodes);
 	std::vector<Node<NodeType>*> neighbors;
@@ -40,7 +42,11 @@ std::unique_ptr<const Solution<SolutionType>> Solver<NodeType, SolutionType>::so
 		m_iterations++;
 	}
 
-	return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_problem.getCurrentSolution());
+	std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+
+	std::unique_ptr<Solution<SolutionType>> solution = m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_problem.getCurrentSolution());
+	solution->setDuration(end - start);
+	return std::move(solution);
 	// return m_problem.hasSolution() ? std::move(m_problem.getSolution()) : std::move(m_algorithm.getCurrentSolution());
 }
 

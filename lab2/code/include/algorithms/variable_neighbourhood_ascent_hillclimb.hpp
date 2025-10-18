@@ -11,7 +11,7 @@ namespace Algorithms
 		uint32_t m_max_hamming_distance;
 
 	public:
-		VNAHillclimb(uint32_t max_hamming_distance, uint32_t multistarts);
+		VNAHillclimb(uint32_t max_hamming_distance, uint32_t multistarts, uint64_t max_evals);
 		virtual ~VNAHillclimb() = default;
 
 		virtual void evaluate(const std::vector<Node<T>*>&);

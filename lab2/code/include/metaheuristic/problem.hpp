@@ -21,7 +21,7 @@ namespace Metaheuristic
 		virtual void evaluate(const std::vector<Node<NodeType>*>& nodes) = 0;
 		virtual bool shouldTerminate(const std::vector<Node<NodeType>*>& nodes) const = 0;
 		virtual bool hasSolution() const = 0;
-		virtual std::unique_ptr<const Solution<SolutionType>> getSolution() = 0;
-		virtual std::unique_ptr<const Solution<SolutionType>> getCurrentSolution() = 0;
+		virtual std::unique_ptr<Solution<SolutionType>> getSolution() = 0;
+		virtual std::unique_ptr<Solution<SolutionType>> getCurrentSolution() = 0;
 	};
 }

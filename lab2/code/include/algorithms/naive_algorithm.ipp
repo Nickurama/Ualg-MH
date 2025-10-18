@@ -32,3 +32,15 @@ void NaiveAlgorithm<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vec
 	// naive algorithm doesn't concern itself with choosing
 	nodes[0] = neighbors[0];
 }
+
+template<typename T>
+uint64_t NaiveAlgorithm<T>::restarts() const
+{
+	return 0;
+}
+
+template<typename T>
+uint64_t NaiveAlgorithm<T>::evaluations() const
+{
+	return 0;
+}

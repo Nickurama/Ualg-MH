@@ -30,5 +30,10 @@ namespace Metaheuristic
 		// should put chosen nodes in "nodes" parameter. nodes is not guaranteed to be empty.
 		virtual void chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors) = 0;
 		// virtual std::unique_ptr<const Solution<S>> getCurrentSolution() = 0;
+
+		virtual uint64_t restarts() const;
+		virtual uint64_t evaluations() const;
 	};
 }
+
+#include "metaheuristic/algorithm.ipp"

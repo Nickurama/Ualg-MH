@@ -15,6 +15,9 @@ namespace Algorithms
 		bool shouldTerminate(const std::vector<Node<T>*>& nodes) const override;
 		void getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen, std::vector<Node<T>*>& neighbors) override;
 		void chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors) override;
+
+		uint64_t restarts() const override;
+		uint64_t evaluations() const override;
 	};
 }
 

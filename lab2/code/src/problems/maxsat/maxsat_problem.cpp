@@ -5,7 +5,6 @@
 
 using namespace Problems;
 
-// WARNING: NOT MAXSAT, THE PROBLEM IS ACTUALLY JUST DEFINED AS LISTING THE NUMBER OF SOLUTIONS.
 MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_size(size),
 	m_max_iter(getMaxIterations(m_size)),
@@ -26,7 +25,7 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 		std::vector<int32_t> clause_variables = m_expression.getRelatedVariablesToClause(clause);
 		for (int32_t clause_variable : clause_variables)
 		{
-			uint32_t variable = std::abs(clause_variable);
+			uint32_t variable = std::abs(clause_variable) - 1;
 			m_variable_clause_relation[variable].emplace_back(clause);
 		}
 	}
@@ -97,7 +96,7 @@ uint64_t MaxsatProblem::evaluateSpecific(const BitArray& bits, const std::vector
 
 	for (size_t variable : variableIndices)
 	{
-		const std::vector<uint32_t>& clauses = m_variable_clause_relation[variable];
+		const std::vector<uint32_t>& clauses = m_variable_clause_relation[m_size - variable - 1];
 
 		for (uint32_t clause : clauses)
 		{
@@ -143,12 +142,13 @@ bool MaxsatProblem::hasSolution() const
 	return shouldTerminate();
 }
 
-std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getSolution()
+std::unique_ptr<Solution<BitArray>> MaxsatProblem::getSolution()
 {
-	return std::make_unique<MaxsatSolution>(m_solution, const_cast<MaxsatProblem&>(*this));
+	return std::make_unique<MaxsatSolution>(m_solution, *this);
+	// return std::make_unique<MaxsatSolution>(m_solution, const_cast<MaxsatProblem&>(*this));
 }
 
-std::unique_ptr<const Solution<BitArray>> MaxsatProblem::getCurrentSolution()
+std::unique_ptr<Solution<BitArray>> MaxsatProblem::getCurrentSolution()
 {
-	return std::make_unique<MaxsatSolution>(m_rolling_solution, const_cast<MaxsatProblem&>(*this));
+	return std::make_unique<MaxsatSolution>(m_rolling_solution, *this);
 }

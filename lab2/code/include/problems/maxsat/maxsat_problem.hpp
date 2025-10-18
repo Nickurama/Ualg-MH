@@ -43,7 +43,7 @@ namespace Problems
 		size_t size() const;
 		bool shouldTerminate(const std::vector<Node<BitArray>*>& nodes) const override;
 		bool hasSolution() const override;
-		std::unique_ptr<const Solution<BitArray>> getSolution() override;
-		std::unique_ptr<const Solution<BitArray>> getCurrentSolution() override;
+		std::unique_ptr<Solution<BitArray>> getSolution() override;
+		std::unique_ptr<Solution<BitArray>> getCurrentSolution() override;
 	};
 }

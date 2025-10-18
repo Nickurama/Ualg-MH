@@ -160,7 +160,7 @@ std::vector<size_t> BitArray::getSetIndices() const
 		uint64_t curr = m_arr[i];
 		while (curr)
 		{
-			diffs_index.emplace_back(__builtin_ctzll(curr));
+			diffs_index.emplace_back(i * sizeof(uint64_t) * 8 + __builtin_ctzll(curr));
 			curr &= curr - 1;
 		}
 	}

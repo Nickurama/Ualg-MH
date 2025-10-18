@@ -6,21 +6,30 @@
 
 using namespace Algorithms;
 
+// max_evals only applies for multistart
 template<typename T>
-NAHillclimb<T>::NAHillclimb(uint32_t hamming_distance, uint32_t multistarts) :
+NAHillclimb<T>::NAHillclimb(uint32_t hamming_distance, uint32_t multistarts, uint64_t max_evals) :
 	m_hamming_distance(hamming_distance),
 	m_should_terminate(false),
 	m_multistarts(multistarts),
+	m_initial_multistarts(multistarts),
 	m_restart(true),
 	m_initial_nodes(),
 	m_restarts(-1),
-	m_evaluations(0)
+	m_evaluations(0),
+	m_max_evals(max_evals)
 {
 }
 
 template<typename T>
 void NAHillclimb<T>::evaluate(const std::vector<Node<T>*>&)
 {
+	if (this->m_max_evals > 0 && this->m_evaluations > this->m_max_evals && this->m_initial_multistarts > 0)
+	{
+		this->m_should_terminate = true;
+		return;
+	}
+
 	if (m_should_terminate && m_multistarts > 0)
 	{
 		m_should_terminate = false;
