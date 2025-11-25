@@ -19,5 +19,8 @@ namespace Metaheuristic
 		static std::minstd_rand& randomEngine();
 		static uint64_t getULong();
 		static uint32_t getUInt();
+		static uint64_t getULongRange(uint64_t start, uint64_t end);	
+		static uint32_t getUIntRange(uint32_t start, uint32_t end);	
+		static bool roll(double p_accept);
 	};
 }

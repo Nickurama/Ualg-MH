@@ -24,6 +24,8 @@ namespace Problems
 
 		Node<BitArray>* getNextNeighbor(Node<BitArray>& node) override;
 		void getHammingNeighbors(const Node<BitArray>& node, uint32_t distance, std::vector<Node<BitArray>*>& neighbors) override;
+		Node<BitArray>* getHammingNeighbor(const Node<BitArray>& node, uint32_t distance) override;
+		Node<BitArray>* getHammingNeighborUnderDistance(const Node<BitArray>& node, uint32_t distance) override;
 		std::unique_ptr<Node<BitArray>> getRandomNode() override;
 	};
 }

@@ -35,3 +35,19 @@ uint32_t RandomNumberGenerator::getUInt()
 {
 	return m_rng();
 }
+
+uint64_t RandomNumberGenerator::getULongRange(uint64_t start, uint64_t end)
+{
+	return start + (RandomNumberGenerator::getULong() % (end - start));
+}
+
+uint32_t RandomNumberGenerator::getUIntRange(uint32_t start, uint32_t end)
+{
+	return start + (RandomNumberGenerator::getUInt() % (end - start));
+}
+
+bool RandomNumberGenerator::roll(double p_accept)
+{
+	double random = static_cast<double>(RandomNumberGenerator::getULong()) / static_cast<double>(std::numeric_limits<unsigned long>::max());
+	return random < p_accept;
+}

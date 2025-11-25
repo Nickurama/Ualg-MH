@@ -53,6 +53,61 @@ void MaxsatNeighborGenerator::getHammingNeighbors(BitArray& curr, uint32_t dista
 	}
 }
 
+Node<BitArray>* MaxsatNeighborGenerator::getHammingNeighbor(const Node<BitArray>& node, uint32_t distance)
+{
+	std::vector<uint64_t> pool;
+	pool.reserve(node.value().size());
+
+	for (size_t i = 0; i < node.value().size(); i++)
+	{
+		pool[i] = i;
+	}
+
+	BitArray result = node.value();
+
+	for (uint32_t i = 0; i < distance; i++)
+	{
+		uint64_t random_index = RandomNumberGenerator::getULongRange(0, pool.size());
+		uint64_t chosen = pool[random_index];
+		result.flip(chosen);
+
+		pool.clear();
+		std::vector<uint64_t> new_pool;
+		new_pool.reserve(pool.size() - 1);
+		size_t j = 0;
+		for (size_t i = 0; i < pool.size(); i++)
+		{
+			if (i == random_index)
+			{
+				continue;
+			}
+
+			new_pool[j++] = pool[i];
+		}
+		pool = new_pool;
+	}
+
+	return &node.createChild<MaxsatNode>(std::move(result));
+}
+
+Node<BitArray>* MaxsatNeighborGenerator::getHammingNeighborUnderDistance(const Node<BitArray>& node, uint32_t distance)
+{
+	BitArray flipped_bits(node.value().size());
+	BitArray result = node.value();
+
+	for (uint32_t i = 0; i < distance; i++)
+	{
+		uint64_t random_index = RandomNumberGenerator::getULongRange(0, result.size());
+		if (!flipped_bits.get(random_index))
+		{
+			flipped_bits.flip(random_index);
+			result.flip(random_index);
+		}
+	}
+
+	return &node.createChild<MaxsatNode>(std::move(result));
+}
+
 std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNode()
 {
 	std::vector<uint64_t> init;
