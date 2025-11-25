@@ -1,0 +1,3 @@
+# Algorithms
+- GA
+- Simulated Annealing
