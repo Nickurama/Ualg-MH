@@ -29,8 +29,6 @@ void TournamentGA<T>::evaluate(const std::vector<Node<T>*>&)
 		return;
 	}
 
-	m_temperature = m_cooling_schedule(m_temperature);
-
 	if (m_evaluations > m_max_evals)
 	{
 		m_should_terminate = true;
@@ -44,51 +42,58 @@ bool TournamentGA<T>::shouldTerminate(const std::vector<Node<T>*>&) const
 }
 
 template<typename T>
-void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& nodes, NeighborGenerator<T>& gen, std::vector<Node<T>*>& neighbors)
+void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, NeighborGenerator<T>& generator, std::vector<Node<T>*>& old_gen)
 {
 	if (m_first)
 	{
 		m_first = false;
-		m_initial_node = std::move(gen.getRandomNode());
-		neighbors.emplace_back(m_initial_node.get());
+
+		m_initial_nodes.reserve(m_pop_size);
+		neighbors.reserve(m_pop_size);
+		for (size_t i = 0; i < m_pop_size; i++)
+		{
+			m_initial_nodes[i] = std::move(generator.getRandomNode());
+			neighbors.emplace_back(m_initial_nodes[i].get());
+		}
+
 		return;
 	}
 
-	neighbors.clear();
-
-	// const Node<T>& node = *nodes[0]; // const_cast<Node<T>&>(*nodes[0])
-	//
-	// const Node<T> neighbor = gen.getHammingNeighbor(node, m_hamming_distance);
-
-	Node<T>* neighbor = gen.getHammingNeighborUnderDistance(*nodes[0], m_hamming_distance);
-	neighbors.emplace_back(neighbor);
+	// recombination
+	// mutation
 }
 
 template<typename T>
-void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& nodes, const std::vector<Node<T>*>& neighbors)
+void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vector<Node<T>*>& old_gen)
 {
-	Node<T>* node = nodes[0];
-	Node<T>* neighbor = neighbors[0];
+	new_gen.clear();
 
-	m_evaluations += 2;
-	double node_fitness = node->fitness();
-	double neighbor_fitness = neighbor->fitness();
-
-	if (neighbor_fitness > node_fitness)
+	// tournament selection, no repeating
+	size_t old_gen_size = old_gen.size();
+	for (uint32_t i = 0; i < m_selection_amount; i++)
 	{
-		nodes.clear();
-		nodes.emplace_back(neighbor);
-		return;
-	}
+		uint64_t max_fitness = 0;
+		Node<T>* match_winner = nullptr;
+		for (uint32_t j = 0; j < m_match_indiviual_number; j++)
+		{
+			// get random individual (from valid range, the ones that haven't been chosen)
+			uint64_t random_index = RandomNumberGenerator::getULongRange(0, old_gen_size - j);
+			Node<T>* curr = old_gen[random_index];
+			m_evaluations++;
+			double curr_fitness = curr->fitness();
 
-	// double exponent = - (node_fitness - neighbor_fitness) / m_temperature;
-	double exponent = (neighbor_fitness - node_fitness) / m_temperature;
-	double p_accept = std::exp(exponent);
+			// if the individual is the best, save it
+			if (curr_fitness > max_fitness)
+			{
+				max_fitness = curr_fitness;
+				match_winner = curr;
+			}
 
-	if (RandomNumberGenerator::roll(p_accept))
-	{
-		nodes.clear();
-		nodes.emplace_back(neighbor);
+			// send the individual to the invalid section
+			old_gen[random_index] = old_gen[old_gen_size - j - 1];
+			old_gen[old_gen_size - j - 1] = curr;
+		}
+		new_gen.emplace_back(match_winner);
 	}
 }
 
