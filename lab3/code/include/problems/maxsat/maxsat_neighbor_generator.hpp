@@ -17,6 +17,8 @@ namespace Problems
 	private:
 		MaxsatProblem& m_problem;
 
+		std::vector<uint64_t> m_random_pool;
+
 		void getHammingNeighbors(BitArray& curr, uint32_t distance, std::vector<Node<BitArray>*>& neighbors, size_t start, const Node<BitArray>& root);
 
 	public:
@@ -27,5 +29,7 @@ namespace Problems
 		Node<BitArray>* getHammingNeighbor(const Node<BitArray>& node, uint32_t distance) override;
 		Node<BitArray>* getHammingNeighborUnderDistance(const Node<BitArray>& node, uint32_t distance) override;
 		std::unique_ptr<Node<BitArray>> getRandomNode() override;
+		Node<BitArray>* mutate(const Node<BitArray>& node, double rate) override;
+		Node<BitArray>* crossover(const Node<BitArray>& first, const Node<BitArray>& second, int k) override;
 	};
 }

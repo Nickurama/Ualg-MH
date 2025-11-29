@@ -8,13 +8,13 @@ using namespace Algorithms;
 
 // max_evals only applies for multistart
 template<typename T>
-TournamentGA<T>::TournamentGA(uint32_t hamming_distance, double initial_temperature, std::function<double(double)> cooling_schedule, uint64_t max_evals) :
-	m_hamming_distance(hamming_distance),
+TournamentGA<T>::TournamentGA(uint64_t pop_size, uint64_t num_crossover_points, double mutation_chance, uint64_t match_individual_number, uint64_t max_evals) :
 	m_should_terminate(false),
-	m_initial_temperature(initial_temperature),
-	m_temperature(initial_temperature),
-	m_cooling_schedule(cooling_schedule),
-	m_initial_node(nullptr),
+	m_initial_nodes(),
+	m_pop_size(pop_size),
+	m_num_crossover_points(num_crossover_points),
+	m_mutation_chance(mutation_chance),
+	m_match_individual_number(match_individual_number),
 	m_evaluations(0),
 	m_max_evals(max_evals),
 	m_first(false)
@@ -65,52 +65,43 @@ void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, Neighbo
 	}
 
 	// recombination
+	old_gen.clear();
 
 	// pick two parents at random
-	for (uint32_t i = 0; i < m_recombination_amount; i++)
+	for (uint32_t i = 0; i < m_pop_size; i++)
 	{
-		uint64_t i0 = RandomNumberGenerator::getULongRange(0, old_gen.size());
-		uint64_t i1 = RandomNumberGenerator::getULongRange(0, old_gen.size());
+		uint64_t i0 = RandomNumberGenerator::getULongRange(0, m_pop_size);
+		uint64_t i1 = RandomNumberGenerator::getULongRange(0, m_pop_size);
 		while (i1 == i0)
 		{
-			i1 = RandomNumberGenerator::getULongRange(0, old_gen.size());
+			i1 = RandomNumberGenerator::getULongRange(0, m_pop_size);
 		}
 
-		Node<T>* parent_0 = old_gen[i0];
-		Node<T>* parent_1 = old_gen[i1];
+		Node<T>* parent_0 = new_gen[i0];
+		Node<T>* parent_1 = new_gen[i1];
 
 		Node<T>* child = generator.crossover(*parent_0, *parent_1, m_num_crossover_points);
-		new_gen.emplace_back(child);
+		old_gen.emplace_back(child);
 	}
-
-	// pick n positions from 1-size
-	// picking i position means >=i is part of the second section
-	// x x x
-
-	// make an ordered array with the chosen positions
-	// at each position it flips the parent to copy
 
 	// mutation
-	for (size_t i = 0; i < new_gen.size(); i++)
+	for (size_t i = 0; i < old_gen.size(); i++)
 	{
-		new_gen[i] = generator.mutate(new_gen[i], m_mutation_chance);
+		old_gen[i] = generator.mutate(old_gen[i], m_mutation_chance);
 	}
-
-	// reset iteration
-	std::copy(new_gen.begin(), new_gen.end(), old_gen.begin());
-	new_gen.clear();
 }
 
 template<typename T>
 void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vector<Node<T>*>& old_gen)
 {
 	// tournament selection, no repeating
+	new_gen.clear();
 	size_t old_gen_size = old_gen.size();
-	for (uint32_t i = 0; i < m_selection_amount; i++)
+	for (uint32_t i = 0; i < m_pop_size; i++)
 	{
 		uint64_t max_fitness = 0;
 		Node<T>* match_winner = nullptr;
-		for (uint32_t j = 0; j < m_match_indiviual_number; j++)
+		for (uint32_t j = 0; j < m_match_individual_number; j++)
 		{
 			// get random individual (from valid range, the ones that haven't been chosen)
 			uint64_t random_index = RandomNumberGenerator::getULongRange(0, old_gen_size - j);

@@ -1,13 +1,20 @@
 #include "problems/maxsat/maxsat_neighbor_generator.hpp"
 #include "metaheuristic/rng.hpp"
 #include "problems/maxsat/maxsat_node.hpp"
+#include <set>
 #include <iostream>
 
 using namespace Problems;
 
 MaxsatNeighborGenerator::MaxsatNeighborGenerator(MaxsatProblem& p) :
-	m_problem(p)
+	m_problem(p),
+	m_random_pool()
 {
+	m_random_pool.reserve(m_problem.size());
+	for (size_t i = 1; i < m_problem.size(); i++)
+	{
+		m_random_pool[i - 1] = i;
+	}
 }
 
 Node<BitArray>* MaxsatNeighborGenerator::getNextNeighbor(Node<BitArray>& node)
@@ -118,4 +125,64 @@ std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNode()
 	}
 
 	return MaxsatNode::createRoot<MaxsatNode>(BitArray(m_problem.size(), init));
+}
+
+Node<BitArray>* MaxsatNeighborGenerator::mutate(const Node<BitArray>& node, double rate)
+{
+	size_t num_bits = node.value().size();
+	BitArray mutated_bit_array = node.value();
+	for (size_t i = 0; i < num_bits; i++)
+	{
+		if (RandomNumberGenerator::roll(rate))
+		{
+			mutated_bit_array.flip(i);
+		}
+	}
+	
+	return &node.createChild<MaxsatNode>(std::move(mutated_bit_array));
+}
+
+Node<BitArray>* MaxsatNeighborGenerator::crossover(const Node<BitArray>& first, const Node<BitArray>& second, int k)
+{
+	// picking i position means >=i is part of the second section
+
+	// picking k random ordered non-repeating indices from [1-size[
+	std::set<uint64_t> pool;
+	for (int i = 0; i < k; i++)
+	{
+		uint64_t rng_i = RandomNumberGenerator::getULongRange(0, m_random_pool.size() - i);
+		uint64_t curr = m_random_pool[rng_i];
+
+		m_random_pool[rng_i] = m_random_pool[m_random_pool.size() - i - 1];
+		m_random_pool[m_random_pool.size() - i - 1] = curr;
+
+		pool.emplace(curr);
+	}
+
+	// laying them in an array
+	std::vector<uint64_t> pool_arr;
+	pool_arr.reserve(k);
+	for (uint64_t indice : pool)
+	{
+		pool_arr.emplace_back(indice);
+	}
+
+	const BitArray& first_arr = first.value();
+	const BitArray& second_arr = second.value();
+	BitArray child_arr;
+	size_t pool_arr_i = 0;
+	size_t pool_arr_size = pool_arr.size();
+	bool flip = false;
+	for (size_t i = 0; i < first_arr.size(); i++)
+	{
+		if (pool_arr_i < pool_arr_size && i == pool_arr[pool_arr_i])
+		{
+			flip = !flip;
+			pool_arr_i++;
+		}
+
+		child_arr.set(i, flip ? second_arr[i] : first_arr[i]);
+	}
+
+	return &first.createChild<MaxsatNode>(std::move(child_arr));
 }

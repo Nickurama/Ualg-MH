@@ -8,18 +8,18 @@ namespace Algorithms
 	class TournamentGA: public Metaheuristic::Algorithm<T>
 	{
 	protected:
-		uint32_t m_hamming_distance;
 		bool m_should_terminate;
-		double m_initial_temperature;
-		double m_temperature;
-		std::function<double(double)> m_cooling_schedule;
-		std::unique_ptr<Node<T>> m_initial_node;
+		std::vector<std::unique_ptr<Node<T>>> m_initial_nodes;
+		uint64_t m_pop_size;
+		uint64_t m_num_crossover_points;
+		double m_mutation_chance;
+		uint64_t m_match_individual_number;
 		uint64_t m_evaluations;
 		uint64_t m_max_evals;
 		bool m_first;
 
 	public:
-		TournamentGA(uint32_t hamming_distance, double initial_temperature, std::function<double(double)> cooling_schedule, uint64_t max_evals);
+		TournamentGA(uint64_t pop_size, uint64_t num_crossover_points, double mutation_chance, uint64_t match_individual_number, uint64_t max_evals);
 		virtual ~TournamentGA() = default;
 
 		virtual void evaluate(const std::vector<Node<T>*>& nodes) override;
