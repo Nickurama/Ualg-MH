@@ -99,7 +99,8 @@ std::unique_ptr<Algorithm<BitArray>> getAlgorithm(int argc, char *argv[])
 		}
 
 		std::function<double(double)> cooling_schedule = [](double t) {
-			return std::max(t - 0.001, 0.0); // linear
+			// return std::max(t - 0.001, 0.0); // linear
+			return t * 0.99;
 		};
 
 		return std::make_unique<SimulatedAnnealing<BitArray>>(hamming_distance, init_temp, cooling_schedule, max_evals);
