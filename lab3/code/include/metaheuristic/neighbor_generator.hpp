@@ -37,7 +37,7 @@ namespace Metaheuristic
 
 		// genetic
 		virtual Node<T>* mutate(const Node<T>& node, double rate);
-		virtual Node<T>* crossover(const Node<T>& first, const Node<T>& second);
+		virtual Node<T>* crossover(const Node<T>& first, const Node<T>& second, int k);
 	};
 }
 

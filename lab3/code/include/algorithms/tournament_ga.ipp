@@ -44,30 +44,66 @@ bool TournamentGA<T>::shouldTerminate(const std::vector<Node<T>*>&) const
 template<typename T>
 void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, NeighborGenerator<T>& generator, std::vector<Node<T>*>& old_gen)
 {
+	// WARNING new_gen is constant, therefore can't emplace
+	// TODO copying every iteration is overly inefficient for no reason
+
+	// initialization
 	if (m_first)
 	{
 		m_first = false;
 
 		m_initial_nodes.reserve(m_pop_size);
-		neighbors.reserve(m_pop_size);
+		old_gen.reserve(m_pop_size);
+		new_gen.reserve(m_pop_size);
 		for (size_t i = 0; i < m_pop_size; i++)
 		{
 			m_initial_nodes[i] = std::move(generator.getRandomNode());
-			neighbors.emplace_back(m_initial_nodes[i].get());
+			old_gen.emplace_back(m_initial_nodes[i].get());
 		}
 
 		return;
 	}
 
 	// recombination
+
+	// pick two parents at random
+	for (uint32_t i = 0; i < m_recombination_amount; i++)
+	{
+		uint64_t i0 = RandomNumberGenerator::getULongRange(0, old_gen.size());
+		uint64_t i1 = RandomNumberGenerator::getULongRange(0, old_gen.size());
+		while (i1 == i0)
+		{
+			i1 = RandomNumberGenerator::getULongRange(0, old_gen.size());
+		}
+
+		Node<T>* parent_0 = old_gen[i0];
+		Node<T>* parent_1 = old_gen[i1];
+
+		Node<T>* child = generator.crossover(*parent_0, *parent_1, m_num_crossover_points);
+		new_gen.emplace_back(child);
+	}
+
+	// pick n positions from 1-size
+	// picking i position means >=i is part of the second section
+	// x x x
+
+	// make an ordered array with the chosen positions
+	// at each position it flips the parent to copy
+
 	// mutation
+	for (size_t i = 0; i < new_gen.size(); i++)
+	{
+		new_gen[i] = generator.mutate(new_gen[i], m_mutation_chance);
+	}
+
+	// reset iteration
+	std::copy(new_gen.begin(), new_gen.end(), old_gen.begin());
+	new_gen.clear();
 }
 
 template<typename T>
 void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vector<Node<T>*>& old_gen)
 {
-	new_gen.clear();
-
 	// tournament selection, no repeating
 	size_t old_gen_size = old_gen.size();
 	for (uint32_t i = 0; i < m_selection_amount; i++)

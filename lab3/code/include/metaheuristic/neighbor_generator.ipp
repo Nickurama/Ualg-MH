@@ -62,7 +62,7 @@ Node<T>* NeighborGenerator<T>::mutate(const Node<T>&, double)
 }
 
 template<Hashable T>
-Node<T>* NeighborGenerator<T>::crossover(const Node<T>&, const Node<T>&)
+Node<T>* NeighborGenerator<T>::crossover(const Node<T>&, const Node<T>&, int)
 {
 	throw std::runtime_error("function not implemented.");
 }
