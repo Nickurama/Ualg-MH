@@ -14,8 +14,8 @@ MaxsatProblem::MaxsatProblem(CnfExpression&& expression, size_t size) :
 	m_neighbor_generator(*this),
 	m_iterations(0),
 	m_should_stop(false),
-	m_rolling_solution(m_root_nodes[0]->value()),
-	m_rolling_fitness(evaluate(m_rolling_solution))
+	m_rolling_solution(&(m_root_nodes[0]->value())),
+	m_rolling_fitness(evaluate(*m_rolling_solution))
 {
 	MaxsatNode::setProblem(const_cast<MaxsatProblem&>(*this));
 
@@ -66,16 +66,16 @@ void MaxsatProblem::evaluate(const std::vector<Node<BitArray>*>& nodes)
 
 void MaxsatProblem::evaluate(const Node<BitArray>* node)
 {
-	uint64_t evals = m_expression.evaluateNum(node->value());
-	if (evals == m_expression.size())
+	double node_fitness = node->fitness();
+	if (((double)m_expression.size() - node_fitness) < 0.001)
 	{
 		m_solution = node->value();
 		m_should_stop = true;
 	}
-	else if (evals > m_rolling_fitness)
+	else if (node_fitness > m_rolling_fitness)
 	{
-		m_rolling_solution = node->value();
-		m_rolling_fitness = evaluate(m_rolling_solution);
+		m_rolling_solution = &(node->value());
+		m_rolling_fitness = node_fitness;
 	}
 }
 
@@ -150,5 +150,5 @@ std::unique_ptr<Solution<BitArray>> MaxsatProblem::getSolution()
 
 std::unique_ptr<Solution<BitArray>> MaxsatProblem::getCurrentSolution()
 {
-	return std::make_unique<MaxsatSolution>(m_rolling_solution, *this);
+	return std::make_unique<MaxsatSolution>(*m_rolling_solution, *this);
 }

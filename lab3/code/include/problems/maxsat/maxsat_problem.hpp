@@ -20,8 +20,8 @@ namespace Problems
 		uint64_t m_iterations;
 		bool m_should_stop;
 
-		BitArray m_rolling_solution;
-		uint64_t m_rolling_fitness;
+		const BitArray* m_rolling_solution;
+		double m_rolling_fitness;
 
 
 		std::vector<std::unique_ptr<Node<BitArray>>> genRootNodes() const;
