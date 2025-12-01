@@ -130,14 +130,29 @@ std::unique_ptr<Node<BitArray>> MaxsatNeighborGenerator::getRandomNode()
 Node<BitArray>* MaxsatNeighborGenerator::mutate(const Node<BitArray>& node, double rate)
 {
 	size_t num_bits = node.value().size();
+
+	uint64_t k = RandomNumberGenerator::getBinomial(num_bits, rate);
+
 	BitArray mutated_bit_array = node.value();
-	for (size_t i = 0; i < num_bits; i++)
+
+	for (uint64_t i = 0; i < k; i++)
 	{
-		if (RandomNumberGenerator::roll(rate))
-		{
-			mutated_bit_array.flip(i);
-		}
+		uint64_t rng_i = RandomNumberGenerator::getULongRange(0, m_random_pool.size() - i);
+		uint64_t curr = m_random_pool[rng_i];
+
+		m_random_pool[rng_i] = m_random_pool[m_random_pool.size() - i - 1];
+		m_random_pool[m_random_pool.size() - i - 1] = curr;
+
+		mutated_bit_array.flip(curr);
 	}
+
+	// for (size_t i = 0; i < num_bits; i++)
+	// {
+	// 	if (RandomNumberGenerator::roll(rate))
+	// 	{
+	// 		mutated_bit_array.flip(i);
+	// 	}
+	// }
 	
 	return &node.createChild<MaxsatNode>(std::move(mutated_bit_array));
 }

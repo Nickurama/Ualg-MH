@@ -5,11 +5,17 @@ using namespace Metaheuristic;
 
 uint32_t RandomNumberGenerator::m_seed = 0;
 std::minstd_rand RandomNumberGenerator::m_rng(0);
+uint64_t RandomNumberGenerator::m_binomial_sequence = 0;
+double RandomNumberGenerator::m_binomial_probability = 0.0;
+std::binomial_distribution<uint64_t> RandomNumberGenerator::m_binom =
+	std::binomial_distribution<uint64_t>(0, 0.0);
 
 void RandomNumberGenerator::setSeed(uint32_t seed)
 {
 	m_seed = seed;
 	m_rng = std::minstd_rand(seed);
+	m_binomial_sequence = 0;
+	m_binomial_probability = 0.0;
 }
 
 void RandomNumberGenerator::setRandomSeed()
@@ -50,4 +56,16 @@ bool RandomNumberGenerator::roll(double p_accept)
 {
 	double random = static_cast<double>(RandomNumberGenerator::getULong()) / static_cast<double>(std::numeric_limits<unsigned long>::max());
 	return random < p_accept;
+}
+
+uint64_t RandomNumberGenerator::getBinomial(uint64_t sequence, double probability)
+{
+	if (m_binomial_sequence != sequence || m_binomial_probability != probability)
+	{
+		m_binomial_sequence = sequence;
+		m_binomial_probability = probability;
+		m_binom = std::binomial_distribution<uint64_t>(m_binomial_sequence, m_binomial_probability);
+	}
+
+	return m_binom(m_rng);
 }
