@@ -15,20 +15,21 @@ TournamentGA<T>::TournamentGA(uint64_t pop_size, uint64_t num_crossover_points, 
 	m_num_crossover_points(num_crossover_points),
 	m_mutation_chance(mutation_chance),
 	m_match_individual_number(match_individual_number),
+	m_random_pool(),
 	m_evaluations(0),
 	m_max_evals(max_evals),
-	m_first(false)
+	m_first(true)
 {
+	m_random_pool.reserve(m_pop_size);
+	for (size_t i = 0; i < m_pop_size; i++)
+	{
+		m_random_pool[i] = i;
+	}
 }
 
 template<typename T>
 void TournamentGA<T>::evaluate(const std::vector<Node<T>*>&)
 {
-	if (m_first)
-	{
-		return;
-	}
-
 	if (m_evaluations > m_max_evals)
 	{
 		m_should_terminate = true;
@@ -44,9 +45,6 @@ bool TournamentGA<T>::shouldTerminate(const std::vector<Node<T>*>&) const
 template<typename T>
 void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, NeighborGenerator<T>& generator, std::vector<Node<T>*>& old_gen)
 {
-	// WARNING new_gen is constant, therefore can't emplace
-	// TODO copying every iteration is overly inefficient for no reason
-
 	// initialization
 	if (m_first)
 	{
@@ -54,10 +52,9 @@ void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, Neighbo
 
 		m_initial_nodes.reserve(m_pop_size);
 		old_gen.reserve(m_pop_size);
-		new_gen.reserve(m_pop_size);
 		for (size_t i = 0; i < m_pop_size; i++)
 		{
-			m_initial_nodes[i] = std::move(generator.getRandomNode());
+			m_initial_nodes.emplace_back(std::move(generator.getRandomNode()));
 			old_gen.emplace_back(m_initial_nodes[i].get());
 		}
 
@@ -87,7 +84,7 @@ void TournamentGA<T>::getNeighbors(const std::vector<Node<T>*>& new_gen, Neighbo
 	// mutation
 	for (size_t i = 0; i < old_gen.size(); i++)
 	{
-		old_gen[i] = generator.mutate(old_gen[i], m_mutation_chance);
+		old_gen[i] = generator.mutate(*old_gen[i], m_mutation_chance);
 	}
 }
 
@@ -96,7 +93,6 @@ void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vec
 {
 	// tournament selection, no repeating
 	new_gen.clear();
-	size_t old_gen_size = old_gen.size();
 	for (uint32_t i = 0; i < m_pop_size; i++)
 	{
 		uint64_t max_fitness = 0;
@@ -104,7 +100,7 @@ void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vec
 		for (uint32_t j = 0; j < m_match_individual_number; j++)
 		{
 			// get random individual (from valid range, the ones that haven't been chosen)
-			uint64_t random_index = RandomNumberGenerator::getULongRange(0, old_gen_size - j);
+			uint64_t random_index = m_random_pool[RandomNumberGenerator::getULongRange(0, m_pop_size - j)];
 			Node<T>* curr = old_gen[random_index];
 			m_evaluations++;
 			double curr_fitness = curr->fitness();
@@ -117,8 +113,8 @@ void TournamentGA<T>::chooseNodes(std::vector<Node<T>*>& new_gen, const std::vec
 			}
 
 			// send the individual to the invalid section
-			old_gen[random_index] = old_gen[old_gen_size - j - 1];
-			old_gen[old_gen_size - j - 1] = curr;
+			m_random_pool[random_index] = m_random_pool[m_pop_size - j - 1];
+			m_random_pool[m_pop_size - j - 1] = random_index;
 		}
 		new_gen.emplace_back(match_winner);
 	}

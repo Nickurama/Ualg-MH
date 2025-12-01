@@ -158,7 +158,12 @@ std::vector<size_t> BitArray::getSetIndices() const
 	for (size_t i = 0; i < m_true_size; i++)
 	{
 		uint64_t curr = m_arr[i];
-		while (curr)
+		uint32_t extra = 0;
+		if (i == m_true_size - 1)
+		{
+			extra = (m_true_size * sizeof(uint64_t) * 8) - m_size_bits;
+		}
+		while (curr << extra)
 		{
 			diffs_index.emplace_back(i * sizeof(uint64_t) * 8 + __builtin_ctzll(curr));
 			curr &= curr - 1;

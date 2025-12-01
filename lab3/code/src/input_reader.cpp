@@ -1,5 +1,6 @@
 #include "input_reader.hpp"
 #include "algorithms/simulated_annealing.hpp"
+#include "algorithms/tournament_ga.hpp"
 #include <algorithm>
 
 std::unique_ptr<Algorithm<BitArray>> getAlgorithm(int argc, char *argv[])
@@ -105,11 +106,43 @@ std::unique_ptr<Algorithm<BitArray>> getAlgorithm(int argc, char *argv[])
 
 		return std::make_unique<SimulatedAnnealing<BitArray>>(hamming_distance, init_temp, cooling_schedule, max_evals);
 	}
+	else if (algorithm_str == "tournamentga")
+	{
+		uint64_t pop_size = 10;
+		uint64_t num_crossover_points = 1;
+		double mutation_chance = 0.0001;
+		uint64_t match_individual_number = 2;
+		uint64_t max_evals = 0;
+
+		if (argc - 1 < 7)
+		{
+			std::cout << "Usage: tournamentga <pop_size> <num_crossover_points> <mutation_chance> <match_individual_number> <max_evals>\n";
+			std::cout << "Missing arguments!\n";
+			std::exit(1);
+		}
+
+		try
+		{
+			pop_size = std::stoul(argv[3]);
+			num_crossover_points = std::stoul(argv[4]);
+			mutation_chance = std::stod(argv[5]);
+			match_individual_number = std::stoul(argv[6]);
+			max_evals = std::stoul(argv[7]);
+		}
+		catch (std::exception&)
+		{
+			std::cout << "Usage: tournamentga <pop_size> <num_crossover_points> <mutation_chance> <match_individual_number> <max_evals>\n";
+			std::cout << "Of types: <ulong> <ulong> <double> <ulong> <ulong>\n";
+			std::exit(1);
+		}
+
+		return std::make_unique<TournamentGA<BitArray>>(pop_size, num_crossover_points, mutation_chance, match_individual_number, max_evals);
+	}
 	else
 	{
 		std::cerr << "Usage: maxsat <input_file> <algorithm> <algorithm_args>\n";
 		std::cerr << "Unknown algorithm \"" << argv[2] << "\".\n";
-		std::cerr << "Possible options: naive, nahillclimb, vnahillclimb, simannealing\n";
+		std::cerr << "Possible options: naive, nahillclimb, vnahillclimb, simannealing, tournamentga\n";
 		std::exit(1);
 	}
 }

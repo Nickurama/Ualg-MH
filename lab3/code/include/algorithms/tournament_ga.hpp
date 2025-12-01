@@ -14,6 +14,7 @@ namespace Algorithms
 		uint64_t m_num_crossover_points;
 		double m_mutation_chance;
 		uint64_t m_match_individual_number;
+		std::vector<size_t> m_random_pool;
 		uint64_t m_evaluations;
 		uint64_t m_max_evals;
 		bool m_first;

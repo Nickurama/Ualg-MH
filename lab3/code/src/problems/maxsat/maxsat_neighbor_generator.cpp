@@ -13,7 +13,7 @@ MaxsatNeighborGenerator::MaxsatNeighborGenerator(MaxsatProblem& p) :
 	m_random_pool.reserve(m_problem.size());
 	for (size_t i = 1; i < m_problem.size(); i++)
 	{
-		m_random_pool[i - 1] = i;
+		m_random_pool.emplace_back(i);
 	}
 }
 
@@ -169,7 +169,7 @@ Node<BitArray>* MaxsatNeighborGenerator::crossover(const Node<BitArray>& first, 
 
 	const BitArray& first_arr = first.value();
 	const BitArray& second_arr = second.value();
-	BitArray child_arr;
+	BitArray child_arr(first_arr.size());
 	size_t pool_arr_i = 0;
 	size_t pool_arr_size = pool_arr.size();
 	bool flip = false;

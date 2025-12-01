@@ -14,15 +14,9 @@ MaxsatNode::MaxsatNode() :
 
 double MaxsatNode::fitness() const
 {
-	// if (m_fitness_cache == 0.0)
-	// {
-	// 	m_fitness_cache = MaxsatNode::maxsat_problem->evaluate(value());
-	// }
-
 	if (m_fitness_cache == 0.0)
 	{
 		const BitArray& self_value = value();
-		const BitArray& parent_value = parent()->value();
 
 		if (isRoot())
 		{
@@ -31,6 +25,8 @@ double MaxsatNode::fitness() const
 			return m_fitness_cache;
 		}
 
+		const BitArray& parent_value = parent()->value();
+
 		std::vector<size_t> differences = self_value.getDifferences(parent_value);
 
 		uint64_t parent_specific_fitness = MaxsatNode::maxsat_problem->evaluateSpecific(parent_value, differences);
@@ -38,7 +34,6 @@ double MaxsatNode::fitness() const
 
 		m_fitness_cache = (uint64_t)parent()->fitness() + (self_specific_fitness - parent_specific_fitness);
 	}
-
 	return m_fitness_cache;
 }
 
