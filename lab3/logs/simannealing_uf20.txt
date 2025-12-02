@@ -1,0 +1,900 @@
+seed: 1768689780
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7037
+evaluations: 14074
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4288559640
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6224
+evaluations: 12448
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 366707803
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6748
+evaluations: 13496
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 647885909
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5781
+evaluations: 11562
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1495278233
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7139
+evaluations: 14278
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1177308585
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7234
+evaluations: 14468
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 803407128
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6497
+evaluations: 12994
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2212580770
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7435
+evaluations: 14870
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4187458734
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7377
+evaluations: 14754
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1773063130
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7450
+evaluations: 14900
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2818702848
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7958
+evaluations: 15916
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4278216560
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7313
+evaluations: 14626
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2695861189
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7382
+evaluations: 14764
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2514807271
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7363
+evaluations: 14726
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3605639214
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6472
+evaluations: 12944
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 517664542
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 6807
+evaluations: 13614
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1067675725
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 6010
+evaluations: 12020
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1611345545
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7325
+evaluations: 14650
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1685999448
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7562
+evaluations: 15124
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2052586205
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7401
+evaluations: 14802
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1370570639
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 2897
+evaluations: 5794
+optimal: yes
+elapsed: 1ms
+-----------------
+seed: 3453779193
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7906
+evaluations: 15812
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3158689546
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7181
+evaluations: 14362
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 13132458
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6928
+evaluations: 13856
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 665881462
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7870
+evaluations: 15740
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4104886103
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5625
+evaluations: 11250
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2037554256
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7304
+evaluations: 14608
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2934637847
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7382
+evaluations: 14764
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1587567201
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5242
+evaluations: 10484
+optimal: yes
+elapsed: 1ms
+-----------------
+seed: 3082951694
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6423
+evaluations: 12846
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3812186419
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7958
+evaluations: 15916
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3072174002
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7541
+evaluations: 15082
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 36449423
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7263
+evaluations: 14526
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2996055520
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7701
+evaluations: 15402
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 123928369
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 1340
+evaluations: 2680
+optimal: yes
+elapsed: 0ms
+-----------------
+seed: 1862702787
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6581
+evaluations: 13162
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3417322264
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 2289
+evaluations: 4578
+optimal: yes
+elapsed: 0ms
+-----------------
+seed: 2878785896
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7166
+evaluations: 14332
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1823836188
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6987
+evaluations: 13974
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1229026227
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7624
+evaluations: 15248
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3351255617
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7110
+evaluations: 14220
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1726354681
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7895
+evaluations: 15790
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3119856505
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7380
+evaluations: 14760
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2857110197
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 5470
+evaluations: 10940
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1632327996
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6126
+evaluations: 12252
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 498447480
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7868
+evaluations: 15736
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3904731170
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7802
+evaluations: 15604
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 648018729
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7870
+evaluations: 15740
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3369724541
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7308
+evaluations: 14616
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1671947016
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6588
+evaluations: 13176
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1434287113
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5099
+evaluations: 10198
+optimal: yes
+elapsed: 1ms
+-----------------
+seed: 2991749596
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6996
+evaluations: 13992
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2955836829
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7483
+evaluations: 14966
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 445370422
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8473
+evaluations: 16946
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3323785375
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7574
+evaluations: 15148
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2180448921
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7523
+evaluations: 15046
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2565240507
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7143
+evaluations: 14286
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 759692906
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7829
+evaluations: 15658
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3010165201
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7299
+evaluations: 14598
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1078357950
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5330
+evaluations: 10660
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3326534590
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7833
+evaluations: 15666
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2168206729
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7391
+evaluations: 14782
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 315512258
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7000
+evaluations: 14000
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1935118794
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8013
+evaluations: 16026
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2716251676
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7293
+evaluations: 14586
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3869627697
+solution: 10000100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5061
+evaluations: 10122
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4255946575
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7487
+evaluations: 14974
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1912710452
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7707
+evaluations: 15414
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3989062378
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6567
+evaluations: 13134
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1105596174
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7617
+evaluations: 15234
+optimal: yes
+elapsed: 3ms
+-----------------
+seed: 3693787189
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7587
+evaluations: 15174
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3897046011
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7488
+evaluations: 14976
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4173592191
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7327
+evaluations: 14654
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1846221895
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7202
+evaluations: 14404
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 602339747
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 9838
+evaluations: 19676
+optimal: yes
+elapsed: 3ms
+-----------------
+seed: 4053846539
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7376
+evaluations: 14752
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4274331525
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8035
+evaluations: 16070
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 4138688924
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7199
+evaluations: 14398
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3854300622
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 8160
+evaluations: 16320
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2620529711
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7331
+evaluations: 14662
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1562587563
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8294
+evaluations: 16588
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3968452352
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7701
+evaluations: 15402
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2777114854
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8395
+evaluations: 16790
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2780444396
+solution: 10010100010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 1722
+evaluations: 3444
+optimal: yes
+elapsed: 0ms
+-----------------
+seed: 2824362366
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6380
+evaluations: 12760
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2568265922
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 7644
+evaluations: 15288
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2057654667
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6789
+evaluations: 13578
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 63772558
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7585
+evaluations: 15170
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2535663815
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7198
+evaluations: 14396
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2971869473
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 8033
+evaluations: 16066
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3068578408
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7294
+evaluations: 14588
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2888175097
+solution: 10000100100001101001
+fitness: (91/91)
+restarts: 0
+iterations: 6965
+evaluations: 13930
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2678909355
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7991
+evaluations: 15982
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3966666690
+solution: 10010000010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6705
+evaluations: 13410
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 2450594354
+solution: 10010001010011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6664
+evaluations: 13328
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1408926650
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 4871
+evaluations: 9742
+optimal: yes
+elapsed: 1ms
+-----------------
+seed: 3472680761
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 5475
+evaluations: 10950
+optimal: yes
+elapsed: 1ms
+-----------------
+seed: 593678092
+solution: 10010100000011101001
+fitness: (91/91)
+restarts: 0
+iterations: 6738
+evaluations: 13476
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 3425522072
+solution: 01110001111001101111
+fitness: (91/91)
+restarts: 0
+iterations: 7070
+evaluations: 14140
+optimal: yes
+elapsed: 2ms
+-----------------
+seed: 1206007780
+solution: 10000100100011101001
+fitness: (91/91)
+restarts: 0
+iterations: 7123
+evaluations: 14246
+optimal: yes
+elapsed: 2ms
+-----------------
